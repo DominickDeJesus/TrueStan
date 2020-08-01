@@ -6,6 +6,8 @@ import React from 'react';
 //Todo: create landing page React component
 //Todo: Add searchbar react component
 
-const LandingPage = () => {};
+const LandingPage = () => {
+  return <></>;
+};
 
 export default LandingPage;
