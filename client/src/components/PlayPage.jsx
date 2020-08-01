@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Form } from 'react-bootstrap';
+import { Route } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 //TODO: add mp3 player
 //TODO: Add a game logic function that handles
@@ -12,8 +14,8 @@ import { Form } from 'react-bootstrap';
 //temp varriable for testing
 
 const PlayPage = (artistObj) => {
-  const [search, setSearch] = useState('');
   const [round, setRound] = useState(1);
+  const history = useHistory();
 
   let song = {
     artistName: 'Jack Johnson',
@@ -29,31 +31,43 @@ const PlayPage = (artistObj) => {
 
   const isGuessCorrect = (usrGuess) => {
     if (usrGuess.toLowerCase() === song.trackName.toLowerCase()) {
-      console.log('guess is right!');
+      setRound(round + 1);
+      console.log(`guess is right! ${round}`);
       return true;
     } else {
-      console.log('guess is wrong!');
+      setRound(-1);
+      history.push('/gameover');
+      console.log(`guess is wrong! ${round}`);
       return false;
     }
   };
 
-  // const goToPage = (page) => {};
+  const getTimeLimit = () => {
+    if (round === 1) {
+      console.log('Time is set to 15');
+      return 15;
+    } else if (round < 3) {
+      console.log('Time is set to 10');
+      return 10;
+    } else if (round < 6) {
+      console.log('Time is set to 5');
+      return 5;
+    } else {
+      console.log('Time is set to 1');
+      return 1;
+    }
+  };
 
   //TODO: Write the code to play a song for the given amount of time
-  const playSong = (song, time) => {};
+  const setSong = (song, time) => {};
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('is this thing on?');
     let guess = event.target.elements.searchbar.value;
-    // Take the value of the input box and set the search state
-    // "searchbar" was the ID of the input bar when we displayed
-    // in the JSX below.
     console.log(guess);
     isGuessCorrect(guess);
-    setSearch(guess);
-
-    guess = '';
+    setSong(getRandomSong(), getTimeLimit());
+    event.target.elements.searchbar.value = '';
   };
 
   useEffect(() => {
@@ -64,7 +78,7 @@ const PlayPage = (artistObj) => {
   return (
     <div>
       <div>PlayPage</div>
-      <h1>Round {1}</h1>
+      <h1>Round {round}</h1>
       <Form onSubmit={handleSubmit}>
         <Form.Row>
           <Form.Control
