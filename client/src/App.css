@@ -8,4 +8,9 @@
   align-items: center;
 }
 
+.PlayPage {
+  display: flex;
+  justify-content: center;
+}
+
 /* END DEMO */
