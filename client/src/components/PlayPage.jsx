@@ -2,6 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Form, Image } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 
+import AudioPlayer from 'react-h5-audio-player';
+import 'react-h5-audio-player/lib/styles.css';
+
+//import 'react-h5-audio-player/lib/styles.less'
+// import 'react-h5-audio-player/src/styles.scss' Use SASS
+
 //TODO: add mp3 player
 
 const PlayPage = (artistObj) => {
@@ -92,6 +98,13 @@ const PlayPage = (artistObj) => {
         src="http://www.pngmart.com/files/4/Circle-Transparent-PNG.png"
         style={{ width: 300 }}
       ></Image>
+      <img src= "https://i.postimg.cc/zB9wLNqM/Pell.jpg"></img>
+  <AudioPlayer
+    src= "https://www.mboxdrive.com/Pell-Show Out.mp3"
+    onPlay={e => console.log("onPlay")}
+    // other props here
+  />
+  
       <Form onSubmit={handleSubmit}>
         <Form.Row>
           <Form.Control
@@ -104,6 +117,9 @@ const PlayPage = (artistObj) => {
       </Form>
     </div>
   );
+
+
+
 };
 
 export default PlayPage;
