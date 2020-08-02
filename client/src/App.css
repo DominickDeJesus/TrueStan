@@ -8,4 +8,9 @@
   align-items: center;
 }
 
+.container {
+  display: flex;
+  justify-content: center;
+}
+
 /* END DEMO */
