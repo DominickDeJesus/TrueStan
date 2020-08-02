@@ -5,14 +5,19 @@ if (process.env.NODE_ENV !== 'production') {
 const express = require('express');
 const path = require('path');
 const app = express();
+const axios = require('axios');
 
-// JUST FOR DEMO PURPOSES, PUT YOUR ACTUAL API CODE HERE
-app.get('/api/demo', (request, response) => {
-  response.json({
-    message: 'Hello from server.js'
-  });
+// axios API CODE 
+app.get('/api/trackNames', async (request, response) => {
+  try {
+    const { search } = request.query 
+    const { data } = await axios.get(`https://itunes.apple.com/search?term=${search}&media=music&entity=musicTrack&song&attribute=artistTerm`)
+    response.json(data)
+  } catch (error) {
+    console.log(error)
+  }
 });
-// END DEMO
+// END route
 
 if (process.env.NODE_ENV === 'production') {
   // Serve any static files
