@@ -4,7 +4,7 @@ import ContextDemo from './components/ContextDemo';
 import GameOverPage from './components/GameOverPage';
 import PlayPage from './components/PlayPage';
 import LandingPage from './components/LandingPage';
-import Container from 'react-bootstrap/Container';
+import { Container, Row } from 'react-bootstrap';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import NavMenu from './components/NavMenu';
 import './App.css';
@@ -23,7 +23,7 @@ const App = () => {
   return (
     <Router>
       <NavMenu />
-      <Container>
+      <Container class="container">
         <Switch>
           <Route path="/gameover" component={GameOverPage} />
           <Route path="/play" component={PlayPage} />

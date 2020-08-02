@@ -85,7 +85,7 @@ const PlayPage = (artistObj) => {
   };
 
   return (
-    <div>
+    <div class>
       <div>PlayPage</div>
       <h1>Round {round}</h1>
       <Image

@@ -8,7 +8,7 @@
   align-items: center;
 }
 
-PlayPage {
+.container {
   display: flex;
   justify-content: center;
 }
