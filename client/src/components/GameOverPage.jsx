@@ -1,7 +1,7 @@
 import React from 'react';
 
 const GameOverPage = () => {
-  return <div>GameOverPage</div>;
+  return <h1>Game Over Man!</h1>;
 };
 
 export default GameOverPage;
