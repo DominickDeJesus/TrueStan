@@ -7,7 +7,7 @@ const path = require('path');
 const app = express();
 const axios = require('axios');
 
-// axios API CODE 
+// AXIOS API 
 app.get('/api/trackNames', async (request, response) => {
   try {
     const { search } = request.query 
@@ -17,7 +17,7 @@ app.get('/api/trackNames', async (request, response) => {
     console.log(error)
   }
 });
-// END route
+// end
 
 if (process.env.NODE_ENV === 'production') {
   // Serve any static files

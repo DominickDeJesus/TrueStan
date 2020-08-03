@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import { Form } from 'react-bootstrap';
+import { Form, FormControl } from 'react-bootstrap';
+
 //the landing page for the song game
 
-//Todo: make api request function
-//Todo: Add searchbar react component
-
+//fetching itunes API
 const LandingPage = () => {
-  //Fix: make this to make it work with a parameter of the users choosing
   const [artistObj, setArtistObj] = useState(""); 
   const [search, setSearch] = useState('')
   function getArtist(search) {
@@ -14,14 +12,11 @@ const LandingPage = () => {
     .then(results => results.json())
     .then(data => {  
      console.log(data); 
-    //  const artistSongs = data.result.map(result => {
-    //     return {preview: result.previewUrl, artist: result.artistName, track: result.trackName, thumbnail: result.artworkUrl100} 
-    //     });
-    //     setArtistObj(artistSongs)
+
       }).catch(err=>{
         console.log(err)
       });
-    //return false;
+
   }
 
   const handleChange = e => {
@@ -29,29 +24,31 @@ const LandingPage = () => {
   }
 
 
-
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.target
     getArtist(search);
     form.reset()
-    //console.log(event.target.elements);
+  
   }
 
-  return (<div>
-  <h1>LandingPage</h1>
+  return (<container>
+ <h1 data-text="ARE YOU A TRUE STAN">ARE YOU A TRUE STAN?</h1>
+ <h2>search an artist<spam>  ⚡ </spam>guess the song</h2>
   <Form onSubmit={handleSubmit}>
   <Form.Row>
-    <Form.Control
+    <FormControl 
       id="search"
-      size="lg"
+      size='lg'
       type="text"
-      placeholder="Guss That Song!"
+      placeholder="Search artist"
       onChange={handleChange}
     />
-  </Form.Row>
+  </Form.Row> 
 </Form>
-</div>
+</container>
 );
   }
+
 export default LandingPage; 
+
