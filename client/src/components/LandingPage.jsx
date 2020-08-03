@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Form } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 //the landing page for the song game
 
 //Todo: make api request function
 //Todo: Add searchbar react component
 
-const LandingPage = ({ search, setSearch, getArtist }) => {
+const LandingPage = ({ search, setSearch, getArtist, setArtistObj }) => {
   //Fix: make this to make it work with a parameter of the users choosing
-  const [artistObj, setArtistObj] = useState('');
+  const history = useHistory();
 
   const handleChange = (e) => {
     setSearch(e.target.value);
@@ -18,6 +19,7 @@ const LandingPage = ({ search, setSearch, getArtist }) => {
     const form = event.target;
     getArtist(search);
     form.reset();
+    history.push('/play');
     //console.log(event.target.elements);
   };
 
