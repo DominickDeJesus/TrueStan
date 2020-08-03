@@ -13,23 +13,22 @@ import 'react-h5-audio-player/lib/styles.css';
 const PlayPage = (artistObj) => {
   const [round, setRound] = useState(1);
   const history = useHistory();
-  let pickedSongIndecies = [];
-
-  //test values for game
-  artistObj = {
-    artistName: 'Jack Johnson',
-    trackArr: [
-      {
-        previewUrl:
-          'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview118/v4/94/25/9c/94259c23-84ee-129d-709c-577186cbe211/mzaf_5653537699505456197.plus.aac.p.m4a',
-        trackName: 'Better Together'
-      }
-    ]
-  };
-
   const audioPlayerRef = useRef(null);
   const [timePlayed, setTimePlayed] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+  let pickedSongIndecies = [];
+  let answer = ''; //artistObj.trackArr[0].trackName;
+  // //test values for game
+  // artistObj = {
+  //   artistName: 'Jack Johnson',
+  //   trackArr: [
+  //     {
+  //       previewUrl:
+  //         'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview118/v4/94/25/9c/94259c23-84ee-129d-709c-577186cbe211/mzaf_5653537699505456197.plus.aac.p.m4a',
+  //       trackName: 'Better Together'
+  //     }
+  //   ]
+  // };
 
   const startPlaying = () => {
     clearTimeout(window.playerTimeOut);
@@ -45,8 +44,6 @@ const PlayPage = (artistObj) => {
     audioPlayerRef.current.audio.current.currentTime = 0;
     setIsPlaying(false);
   };
-
-  let answer = artistObj.trackArr[0].trackName;
 
   useEffect(() => {
     console.log(artistObj);
@@ -105,15 +102,14 @@ const PlayPage = (artistObj) => {
   const getRandomSong = (artistSongArr, arraySize) => {
     while (pickedSongIndecies.length < arraySize) {
       let randomIndex = Math.round(Math.random * arraySize);
+
       if (pickedSongIndecies.indexOf(randomIndex) !== -1) {
         pickedSongIndecies.push(randomIndex);
         return artistSongArr(randomIndex);
       }
-      window.alert("Wow! Didn't think that would happen. I guess you won.");
-      history.push('/');
     }
-
-    return artistSongArr && 'Better Together';
+    window.alert("Wow! Didn't think that would happen. I guess you won.");
+    history.push('/');
   };
 
   return (
