@@ -11,11 +11,14 @@ import 'react-h5-audio-player/lib/styles.css';
 //TODO: add mp3 player
 
 const PlayPage = (artistObj) => {
-  const [round, setRound] = useState(1);
   const history = useHistory();
   const audioPlayerRef = useRef(null);
+  const [round, setRound] = useState(1);
   const [timePlayed, setTimePlayed] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [songUrl, setSongUrl] = useState(
+    'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview128/v4/56/29/df/5629df9c-7ccb-39ef-671c-3b41503d24b0/mzaf_4466913524228839282.plus.aac.p.m4a'
+  );
   let pickedSongIndecies = [];
   let answer = ''; //artistObj.trackArr[0].trackName;
   // //test values for game
@@ -79,23 +82,8 @@ const PlayPage = (artistObj) => {
       return 5000;
     } else {
       console.log('Time is set to 1');
-      return 1000;
+      return 1500;
     }
-  };
-
-  /**Handles the submit for the guess. The function will make a call to check the geuss
-   * and then set the game for the next round if guess was right.
-   * @param {*} event
-   */
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    let guess = event.target.elements.searchbar.value;
-    console.log(guess);
-
-    isGuessCorrect(guess, answer);
-    //setSong(getRandomSong(), getTimeLimit(round));
-    event.target.elements.searchbar.value = '';
   };
 
   //FIX: function to initialize the player for the game
@@ -112,6 +100,22 @@ const PlayPage = (artistObj) => {
     history.push('/');
   };
 
+  /**Handles the submit for the guess. The function will make a call to check the geuss
+   * and then set the game for the next round if guess was right.
+   * @param {*} event
+   */
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    let guess = event.target.elements.searchbar.value;
+    console.log(guess);
+    isGuessCorrect(guess, answer);
+    //setSong(getRandomSong(), getTimeLimit(round));
+    //    let nextSong = getRandomSong().previewUrl;
+    //    setSongUrl(nextSong);
+
+    event.target.elements.searchbar.value = '';
+  };
+
   return (
     <div class>
       <div>PlayPage</div>
@@ -122,7 +126,7 @@ const PlayPage = (artistObj) => {
       ></img>
       <AudioPlayer
         ref={audioPlayerRef}
-        src="https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview128/v4/56/29/df/5629df9c-7ccb-39ef-671c-3b41503d24b0/mzaf_4466913524228839282.plus.aac.p.m4a"
+        src={songUrl}
         onPlay={startPlaying}
         onPause={stopPlaying}
         // other props here
