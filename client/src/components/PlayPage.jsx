@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Form, Image } from 'react-bootstrap';
+import { Form, Image, Alert } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 
 import AudioPlayer from 'react-h5-audio-player';
@@ -13,6 +13,7 @@ import 'react-h5-audio-player/lib/styles.css';
 const PlayPage = (artistObj) => {
   const [round, setRound] = useState(1);
   const history = useHistory();
+  let pickedSongIndecies = [];
 
   //test values for game
   artistObj = {
@@ -96,16 +97,22 @@ const PlayPage = (artistObj) => {
     console.log(guess);
 
     isGuessCorrect(guess, answer);
-    setSong(getRandomSong(), getTimeLimit(round));
+    //setSong(getRandomSong(), getTimeLimit(round));
     event.target.elements.searchbar.value = '';
   };
 
-  //TODO: Write the code to play a song for the given amount of time
-  const setSong = (song, time) => {};
-
   //FIX: function to initialize the player for the game
-  const getRandomSong = (artistSongArr) => {
-    //Todo: make it output a random song that has not been picked yet
+  const getRandomSong = (artistSongArr, arraySize) => {
+    while (pickedSongIndecies.length < arraySize) {
+      let randomIndex = Math.round(Math.random * arraySize);
+      if (pickedSongIndecies.indexOf(randomIndex) !== -1) {
+        pickedSongIndecies.push(randomIndex);
+        return artistSongArr(randomIndex);
+      }
+      window.alert("Wow! Didn't think that would happen. I guess you won.");
+      history.push('/');
+    }
+
     return artistSongArr && 'Better Together';
   };
 
@@ -115,7 +122,7 @@ const PlayPage = (artistObj) => {
       <h1>Round {round}</h1>
       <img
         src="https://is2-ssl.mzstatic.com/image/thumb/Music128/v4/00/52/e0/0052e0a1-5aff-3841-3b94-b7a1bed634ad/source/100x100bb.jpg"
-        width="300"
+        width="100"
       ></img>
       <AudioPlayer
         ref={audioPlayerRef}
