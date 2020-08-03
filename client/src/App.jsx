@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { AppContextProvider } from './context/AppContext';
-import ContextDemo from './components/ContextDemo';
+import React, { useState } from 'react';
 import GameOverPage from './components/GameOverPage';
 import PlayPage from './components/PlayPage';
 import LandingPage from './components/LandingPage';
@@ -10,24 +8,50 @@ import NavMenu from './components/NavMenu';
 import './App.css';
 
 const App = () => {
-  // const [serverMessage, setServerMessage] = useState('');
-
-  // const fetchDemoData = () => {
-  //   fetch('/api/demo')
-  //     .then((response) => response.json())
-  //     .then((data) => setServerMessage(data.message));
-  // };
-
-  //useEffect(fetchDemoData, []);
+  const [search, setSearch] = useState('');
+  function getArtist(search) {
+    fetch(`/api/trackNames?search=${search}`)
+      .then((results) => results.json())
+      .then((data) => {
+        console.log(data);
+        //  const artistSongs = data.result.map(result => {
+        //     return {preview: result.previewUrl, artist: result.artistName, track: result.trackName, thumbnail: result.artworkUrl100}
+        //     });
+        //     setArtistObj(artistSongs)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    //return false;
+  }
 
   return (
     <Router>
       <NavMenu />
       <Container class="container">
         <Switch>
-          <Route path="/gameover" component={GameOverPage} />
-          <Route path="/play" component={PlayPage} />
-          <Route exact path="/" component={LandingPage} />
+          <Route
+            exact
+            path="/"
+            render={(props) => {
+              return (
+                <LandingPage
+                  {...props}
+                  search={search}
+                  setSearch={setSearch}
+                  getArtist={getArtist}
+                />
+              );
+            }}
+          />
+          <Route exact path="/gameover" component={GameOverPage} />
+          <Route
+            exact
+            path="/play"
+            render={(props) => {
+              return <PlayPage {...props} getArtist={getArtist} />;
+            }}
+          />
         </Switch>
       </Container>
     </Router>
