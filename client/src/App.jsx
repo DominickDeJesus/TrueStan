@@ -1,34 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import GameOverPage from './components/GameOverPage';
 import PlayPage from './components/PlayPage';
 import LandingPage from './components/LandingPage';
-import { Container, Row } from 'react-bootstrap';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from 'react-router-dom';
 import NavMenu from './components/NavMenu';
+import { useHistory } from 'react-router';
 import './App.css';
 
 const App = () => {
+  const history = useHistory();
   const [search, setSearch] = useState('');
+  const [artistObj, setArtistObj] = useState({});
   function getArtist(search) {
-    fetch(`/api/trackNames?search=${search}`)
+    return fetch(`/api/trackNames?search=${search}`)
       .then((results) => results.json())
       .then((data) => {
-        console.log(data);
-        //  const artistSongs = data.result.map(result => {
-        //     return {preview: result.previewUrl, artist: result.artistName, track: result.trackName, thumbnail: result.artworkUrl100}
-        //     });
-        //     setArtistObj(artistSongs)
+        setArtistObj(data);
       })
       .catch((err) => {
         console.log(err);
       });
-    //return false;
   }
 
   return (
     <Router>
       <NavMenu />
-      <Container class="container">
+      <Container className="container">
         <Switch>
           <Route
             exact
@@ -40,6 +43,7 @@ const App = () => {
                   search={search}
                   setSearch={setSearch}
                   getArtist={getArtist}
+                  setArtistObj={setArtistObj}
                 />
               );
             }}
@@ -49,7 +53,7 @@ const App = () => {
             exact
             path="/play"
             render={(props) => {
-              return <PlayPage {...props} getArtist={getArtist} />;
+              return <PlayPage {...props} artistObj={artistObj} />;
             }}
           />
         </Switch>
