@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Form } from 'react-bootstrap';
-import { useHistory } from 'react-router-dom';
-
+import { useHistory, Redirect } from 'react-router-dom';
+//import Music from './Music';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 
@@ -12,9 +12,6 @@ import 'react-h5-audio-player/lib/styles.css';
 
 const PlayPage = ({ artistObj }) => {
   const history = useHistory();
-  console.log(artistObj);
-  console.log(`From LandingPage to PlayPage:`);
-  console.log(artistObj);
 
   const audioPlayerRef = useRef(null);
   const [round, setRound] = useState(1);
@@ -23,8 +20,13 @@ const PlayPage = ({ artistObj }) => {
   const [songUrl, setSongUrl] = useState(
     'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview128/v4/56/29/df/5629df9c-7ccb-39ef-671c-3b41503d24b0/mzaf_4466913524228839282.plus.aac.p.m4a'
   );
-  let pickedSongIndecies = [];
-  let answer = '';
+  if (!artistObj.results) {
+    return <Redirect path="/" />;
+  }
+
+  let pickedSongIndecies = [0];
+  let answer = artistObj.results[0];
+
   const getTimeLimit = (round) => {
     if (round === 1) {
       console.log('Time is set to 15');
@@ -40,6 +42,7 @@ const PlayPage = ({ artistObj }) => {
       return 1500;
     }
   };
+
   const startPlaying = () => {
     clearTimeout(window.playerTimeOut);
     audioPlayerRef.current.audio.current.play();
@@ -51,27 +54,17 @@ const PlayPage = ({ artistObj }) => {
 
   const stopPlaying = () => {
     audioPlayerRef.current.audio.current.pause();
-    return (audioPlayerRef.current.audio.current.currentTime = 0);
+    audioPlayerRef.current.audio.current.currentTime = 0;
     //setIsPlaying(false);
   };
-
-  useEffect(() => {
-    //answer = getRandomSong(artistObj.results);
-    //answer = getSongInOrder(artistObj.results);
-    console.log(`The answer was set to :${answer}`);
-  }, [songUrl, artistObj]);
-
-  useEffect(() => {
-    ///console.log(artistObj?.results[0]);
-  }, [artistObj]);
 
   /**Sets the next round if correct and send to game over page if guess is wrong.
    * @returns if the answers are the same
    * @param {*} usrGuess
    * @param {*} answer
    */
-  const isGuessCorrect = (usrGuess, tanswer) => {
-    if (usrGuess.toLowerCase() === tanswer.toLowerCase()) {
+  const isGuessCorrect = (usrGuess, answer) => {
+    if (usrGuess.toLowerCase() === answer.toLowerCase()) {
       setRound(round + 1);
       console.log(`Guess is right! ${round}`);
       return true;
@@ -134,7 +127,7 @@ const PlayPage = ({ artistObj }) => {
         onPause={stopPlaying}
         // other props here
       />
-
+      {/* <Music songUrl={track.previewUrl} imgUrl={track.imageExample} /> */}
       <Form onSubmit={handleSubmit}>
         <Form.Row>
           <Form.Control

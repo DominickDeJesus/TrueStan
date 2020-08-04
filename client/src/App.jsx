@@ -18,7 +18,7 @@ const App = () => {
   const [search, setSearch] = useState('');
   const [artistObj, setArtistObj] = useState({});
   function getArtist(search) {
-    fetch(`/api/trackNames?search=${search}`)
+    return fetch(`/api/trackNames?search=${search}`)
       .then((results) => results.json())
       .then((data) => {
         //  const artistSongs = data.result.map(result => {
@@ -26,21 +26,16 @@ const App = () => {
         //     });
         //     setArtistObj(artistSongs)
         setArtistObj(data);
-        console.log(`Raw data from request :`);
-        console.log(data);
-        console.log(`This is what the artistObj is set to:`);
-        console.log(artistObj);
+        //console.log(`Raw data from request :`);
+        //console.log(data);
+        //console.log(`This is what the artistObj is set to:`);
+        //console.log(artistObj);
       })
       .catch((err) => {
         console.log(err);
       });
     //return false;
   }
-  useEffect(() => {
-    return <Redirect to="/" />;
-    //window.location = 'http://localhost:3000';
-    //history.push('/');
-  }, []);
 
   return (
     <Router>

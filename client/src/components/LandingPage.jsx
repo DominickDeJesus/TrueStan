@@ -17,10 +17,10 @@ const LandingPage = ({ search, setSearch, getArtist, setArtistObj }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
-    getArtist(search);
-    form.reset();
-    history.push('/play');
-    //console.log(event.target.elements);
+    getArtist(search).then(() => {
+      form.reset();
+      history.push('/play');
+    });
   };
 
   return (
