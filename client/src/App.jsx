@@ -12,19 +12,20 @@ import {
 import NavMenu from './components/NavMenu';
 import { useHistory } from 'react-router';
 import './App.css';
-import bootstrap from 'react-bootstrap'; 
-
-
+import bootstrap from 'react-bootstrap';
 
 const App = () => {
   const history = useHistory();
   const [search, setSearch] = useState('');
   const [artistObj, setArtistObj] = useState({});
+  const [currentTrack, setCurrentTrack] = useState({});
+
   function getArtist(search) {
     return fetch(`/api/trackNames?search=${search}`)
       .then((results) => results.json())
       .then((data) => {
         setArtistObj(data);
+        setCurrentTrack(data.results[0]);
       })
       .catch((err) => {
         console.log(err);
@@ -56,7 +57,14 @@ const App = () => {
             exact
             path="/play"
             render={(props) => {
-              return <PlayPage {...props} artistObj={artistObj} />;
+              return (
+                <PlayPage
+                  {...props}
+                  artistObj={artistObj}
+                  currentTrack={currentTrack}
+                  setCurrentTrack={setCurrentTrack}
+                />
+              );
             }}
           />
         </Switch>

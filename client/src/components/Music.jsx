@@ -1,6 +1,6 @@
 import React, { useState, Component, useEffect, useRef } from 'react';
 
-const Music = ({ songUrl, imgUrl }) => {
+const Music = ({ songUrl, imgUrl, onClicker }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const audio = new Audio(songUrl);
   const togglePlay = () => {
@@ -8,6 +8,7 @@ const Music = ({ songUrl, imgUrl }) => {
     setIsPlaying(newPlayState);
     newPlayState ? audio.play() : audio.pause();
   };
+
   return (
     <a>
       <button style={{ borderRadius: '50%' }}>
@@ -15,7 +16,7 @@ const Music = ({ songUrl, imgUrl }) => {
           style={{ borderRadius: '50%' }}
           src={imgUrl}
           alt="Pell"
-          onClick={togglePlay}
+          onClick={onClicker}
         />
       </button>
     </a>

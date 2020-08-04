@@ -11,18 +11,20 @@ import Music from './Music';
 
 //TODO: add mp3 player
 
-const PlayPage = ({ artistObj }) => {
+const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
   const history = useHistory();
   const audioPlayerRef = useRef();
   const [round, setRound] = useState(1);
   const [timePlayed, setTimePlayed] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTrack, setCurrentTrack] = useState({});
+  // const [currentTrack, setCurrentTrack] = useState({});
+  const [isPlaying2, setIsPlaying2] = useState(false);
+  let playStatus = false;
 
-  useEffect(() => {
-    setCurrentTrack(artistObj.results[0]);
-    console.log(artistObj.results[0].previewUrl);
-  }, []);
+  // useEffect(() => {
+  //   setCurrentTrack(artistObj.results[0]);
+  //   console.log(artistObj.results[0]);
+  // }, []);
 
   // useEffect(() => {
   //   audioPlayerRef.current.onTrackChange();
@@ -132,18 +134,43 @@ const PlayPage = ({ artistObj }) => {
     //setIsPlaying(false);
   };
 
+  const audio = new Audio(currentTrack.previewUrl);
+
+  const testOnClick = () => {
+    console.log('isPlaying2:', playStatus);
+    // const newPlayState = !isPlaying2;
+    // setIsPlaying2(newPlayState);
+
+    if (!playStatus) {
+      console.log('true');
+      audio.play();
+    } else {
+      console.log('false');
+      audio.pause();
+    }
+    playStatus = !playStatus;
+
+    // const newPlayState = !isPlaying;
+    // setIsPlaying(newPlayState);
+    // newPlayState ? audio.play() : audio.pause();
+  };
+
   return (
     <div>
       <div>PlayPage</div>
       <h1>Round {round}</h1>
       <div>{currentTrack.trackName}</div>
-      <Music
-        ref={audioPlayerRef}
-        // onPlay={startPlaying}
-        // onPause={stopPlaying}
-        songUrl={currentTrack.previewUrl}
-        imgUrl={currentTrack.artworkUrl100}
-      />
+
+      <a>
+        <button style={{ borderRadius: '50%' }}>
+          <img
+            style={{ borderRadius: '50%' }}
+            src={currentTrack.artworkUrl100}
+            alt="Pell"
+            onClick={testOnClick}
+          />
+        </button>
+      </a>
 
       {/* <AudioPlayer
         ref={audioPlayerRef}
