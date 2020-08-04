@@ -1,36 +1,27 @@
 import React, { useState } from 'react';
-import { Form, FormControl } from 'react-bootstrap';
+import { Form, FormControl, useHistory } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
+
 
 //the landing page for the song game
 
-//fetching itunes API
-const LandingPage = () => {
-  const [artistObj, setArtistObj] = useState(""); 
-  const [search, setSearch] = useState('')
-  function getArtist(search) {
-    fetch(`/api/trackNames?search=${search}`)
-    .then(results => results.json())
-    .then(data => {  
-     console.log(data); 
 
-      }).catch(err=>{
-        console.log(err)
-      });
+const LandingPage = ({ search, setSearch, getArtist, setArtistObj }) => {
+  //Fix: make this to make it work with a parameter of the users choosing
+  const history = useHistory();
 
-  }
-
-  const handleChange = e => {
-    setSearch(e.target.value)
-  }
-
+  const handleChange = (e) => {
+    setSearch(e.target.value);
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const form = event.target
-    getArtist(search);
-    form.reset()
-  
-  }
+    const form = event.target;
+    getArtist(search).then(() => {
+      form.reset();
+      history.push('/play');
+    });
+  };
 
   return (<container>
  <h1 data-text="ARE YOU A TRUE STAN">ARE YOU A TRUE STAN?</h1>
@@ -48,7 +39,5 @@ const LandingPage = () => {
 </Form>
 </container>
 );
-  }
-
-export default LandingPage; 
-
+};
+export default LandingPage;

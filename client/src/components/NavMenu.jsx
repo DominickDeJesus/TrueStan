@@ -15,14 +15,10 @@ const NavMenu = () => {
         <Link to="/">Landing Page</Link>
       </Nav.Item>
       <Nav.Item>
-        <Link to="/play" eventKey="link-1">
-          Play
-        </Link>
+        <Link to="/play">Play</Link>
       </Nav.Item>
       <Nav.Item>
-        <Link to="/gameover" eventKey="link-2">
-          Game over
-        </Link>
+        <Link to="/gameover">Game over</Link>
       </Nav.Item>
     </Nav>
   );
