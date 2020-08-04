@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Form } from 'react-bootstrap';
 import { useHistory, Redirect } from 'react-router-dom';
-import Music from './Music';
 
 // import AudioPlayer from 'react-h5-audio-player';
 // import 'react-h5-audio-player/lib/styles.css';
@@ -13,22 +12,7 @@ import Music from './Music';
 
 const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
   const history = useHistory();
-  const audioPlayerRef = useRef();
   const [round, setRound] = useState(1);
-  const [timePlayed, setTimePlayed] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
-  // const [currentTrack, setCurrentTrack] = useState({});
-  const [isPlaying2, setIsPlaying2] = useState(false);
-  let playStatus = false;
-
-  // useEffect(() => {
-  //   setCurrentTrack(artistObj.results[0]);
-  //   console.log(artistObj.results[0]);
-  // }, []);
-
-  // useEffect(() => {
-  //   audioPlayerRef.current.onTrackChange();
-  // }, [currentTrack]);
 
   if (!artistObj.results) {
     return <Redirect path="/" />;
@@ -36,9 +20,12 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
   if (!currentTrack.previewUrl) {
     return null;
   }
-
+  let playStatus = false;
+  let timePlayed = 15;
   let pickedSongIndecies = new Array(1);
-  console.log(artistObj);
+  const audio = new Audio(currentTrack.previewUrl);
+
+  //console.log(artistObj);
   const getTimeLimit = (round) => {
     if (round === 1) {
       console.log('Time is set to 15');
@@ -98,7 +85,7 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
   const setGame = () => {
     let answer = getRandomSong(artistObj.results);
     setCurrentTrack(answer);
-    console.log(currentTrack.previewUrl);
+    //console.log(currentTrack.previewUrl);
   };
   /**Handles the submit for the guess. The function will make a call to check the geuss
    * and then set the game for the next round if guess was right.
@@ -106,6 +93,7 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
    */
   const handleSubmit = (event) => {
     event.preventDefault();
+    stopPlaying();
     let guess = event.target.elements.searchbar.value;
     console.log(guess);
     isGuessCorrect(guess.toString(), currentTrack.trackName);
@@ -121,64 +109,49 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
 
   const startPlaying = () => {
     clearTimeout(window.playerTimeOut);
-    audioPlayerRef.this.audio.play();
-    setIsPlaying(true);
+    audio.play();
     const newTimePlayed = timePlayed + 1;
-    setTimePlayed(newTimePlayed);
+    timePlayed = newTimePlayed;
     window.playerTimeOut = setTimeout(stopPlaying, getTimeLimit(round));
   };
 
   const stopPlaying = () => {
-    audioPlayerRef.current.audio.pause();
-    audioPlayerRef.current.audio.currentTime = 0;
+    audio.pause();
+    audio.currentTime = 0;
     //setIsPlaying(false);
   };
 
-  const audio = new Audio(currentTrack.previewUrl);
-
-  const testOnClick = () => {
+  const toggleClick = () => {
     console.log('isPlaying2:', playStatus);
     // const newPlayState = !isPlaying2;
     // setIsPlaying2(newPlayState);
 
     if (!playStatus) {
       console.log('true');
-      audio.play();
+      startPlaying();
+      //audio.play();
     } else {
       console.log('false');
-      audio.pause();
+      stopPlaying();
+      //audio.pause();
     }
     playStatus = !playStatus;
-
-    // const newPlayState = !isPlaying;
-    // setIsPlaying(newPlayState);
-    // newPlayState ? audio.play() : audio.pause();
   };
 
   return (
     <div>
-      <div>PlayPage</div>
       <h1>Round {round}</h1>
       <div>{currentTrack.trackName}</div>
-
       <a>
         <button style={{ borderRadius: '50%' }}>
           <img
             style={{ borderRadius: '50%' }}
             src={currentTrack.artworkUrl100}
-            alt="Pell"
-            onClick={testOnClick}
+            alt="Album Artwork"
+            onClick={toggleClick}
           />
         </button>
       </a>
-
-      {/* <AudioPlayer
-        ref={audioPlayerRef}
-        src={songUrl}
-        onPlay={startPlaying}
-        onPause={stopPlaying}
-        // other props here
-      /> */}
       <Form onSubmit={handleSubmit}>
         <Form.Row>
           <Form.Control
