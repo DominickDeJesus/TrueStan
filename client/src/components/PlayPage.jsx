@@ -13,7 +13,7 @@ import Music from './Music';
 
 const PlayPage = ({ artistObj }) => {
   const history = useHistory();
-  const audioPlayerRef = useRef(null);
+  const audioPlayerRef = useRef();
   const [round, setRound] = useState(1);
   const [timePlayed, setTimePlayed] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -96,6 +96,7 @@ const PlayPage = ({ artistObj }) => {
   const setGame = () => {
     let answer = getRandomSong(artistObj.results);
     setCurrentTrack(answer);
+    console.log(currentTrack.previewUrl);
   };
   /**Handles the submit for the guess. The function will make a call to check the geuss
    * and then set the game for the next round if guess was right.
