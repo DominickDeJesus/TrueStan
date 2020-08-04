@@ -21,20 +21,11 @@ const App = () => {
     return fetch(`/api/trackNames?search=${search}`)
       .then((results) => results.json())
       .then((data) => {
-        //  const artistSongs = data.result.map(result => {
-        //     return {preview: result.previewUrl, artist: result.artistName, track: result.trackName, thumbnail: result.artworkUrl100}
-        //     });
-        //     setArtistObj(artistSongs)
         setArtistObj(data);
-        //console.log(`Raw data from request :`);
-        //console.log(data);
-        //console.log(`This is what the artistObj is set to:`);
-        //console.log(artistObj);
       })
       .catch((err) => {
         console.log(err);
       });
-    //return false;
   }
 
   return (

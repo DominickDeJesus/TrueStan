@@ -24,6 +24,10 @@ const PlayPage = ({ artistObj }) => {
     console.log(artistObj.results[0].previewUrl);
   }, []);
 
+  // useEffect(() => {
+  //   audioPlayerRef.current.onTrackChange();
+  // }, [currentTrack]);
+
   if (!artistObj.results) {
     return <Redirect path="/" />;
   }
@@ -33,7 +37,6 @@ const PlayPage = ({ artistObj }) => {
 
   let pickedSongIndecies = new Array(1);
   console.log(artistObj);
-  let answer = artistObj.results[0];
   const getTimeLimit = (round) => {
     if (round === 1) {
       console.log('Time is set to 15');
@@ -90,6 +93,10 @@ const PlayPage = ({ artistObj }) => {
     return artistSongArr;
   };
 
+  const setGame = () => {
+    let answer = getRandomSong(artistObj.results);
+    setCurrentTrack(answer);
+  };
   /**Handles the submit for the guess. The function will make a call to check the geuss
    * and then set the game for the next round if guess was right.
    * @param {*} event
@@ -98,9 +105,8 @@ const PlayPage = ({ artistObj }) => {
     event.preventDefault();
     let guess = event.target.elements.searchbar.value;
     console.log(guess);
-    isGuessCorrect(guess.toString(), answer.trackName);
-    answer = getRandomSong(artistObj.results);
-    setCurrentTrack(answer);
+    isGuessCorrect(guess.toString(), currentTrack.trackName);
+    setGame();
     //answer = getSongInOrder(artistObj?.results);
 
     //setSong(getRandomSong(), getTimeLimit(round));
@@ -120,8 +126,8 @@ const PlayPage = ({ artistObj }) => {
   };
 
   const stopPlaying = () => {
-    audioPlayerRef.current.audio.current.pause();
-    audioPlayerRef.current.audio.current.currentTime = 0;
+    audioPlayerRef.current.audio.pause();
+    audioPlayerRef.current.audio.currentTime = 0;
     //setIsPlaying(false);
   };
 
