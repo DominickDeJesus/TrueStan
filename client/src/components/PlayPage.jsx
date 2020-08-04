@@ -157,7 +157,7 @@ const PlayPage = ({ artistObj }) => {
             id="searchbar"
             size="lg"
             type="text"
-            placeholder="Guss That Song!"
+            placeholder="Guess that song!"
           ></Form.Control>
         </Form.Row>
       </Form>

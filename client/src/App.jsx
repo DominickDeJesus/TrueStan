@@ -12,6 +12,9 @@ import {
 import NavMenu from './components/NavMenu';
 import { useHistory } from 'react-router';
 import './App.css';
+import bootstrap from 'react-bootstrap'; 
+
+
 
 const App = () => {
   const history = useHistory();
