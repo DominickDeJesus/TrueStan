@@ -30,14 +30,14 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
     if (round === 1) {
       console.log('Time is set to 15');
       return 15000;
-    } else if (round < 3) {
+    } else if (round < 4) {
       console.log('Time is set to 10');
       return 10000;
-    } else if (round < 6) {
+    } else if (round < 8) {
       console.log('Time is set to 5');
       return 5000;
     } else {
-      console.log('Time is set to 1');
+      console.log('Time is set to 1.5');
       return 1500;
     }
   };
@@ -99,33 +99,24 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
     isGuessCorrect(guess.toString(), currentTrack.trackName);
     setGame();
     //answer = getSongInOrder(artistObj?.results);
-
-    //setSong(getRandomSong(), getTimeLimit(round));
-    //    let nextSong = getRandomSong().previewUrl;
-    //    setSongUrl(nextSong);
-
     event.target.elements.searchbar.value = '';
   };
 
   const startPlaying = () => {
     clearTimeout(window.playerTimeOut);
     audio.play();
-    const newTimePlayed = timePlayed + 1;
-    timePlayed = newTimePlayed;
     window.playerTimeOut = setTimeout(stopPlaying, getTimeLimit(round));
+    playStatus = true;
   };
 
   const stopPlaying = () => {
     audio.pause();
     audio.currentTime = 0;
-    //setIsPlaying(false);
+    playStatus = false;
   };
 
   const toggleClick = () => {
     console.log('isPlaying2:', playStatus);
-    // const newPlayState = !isPlaying2;
-    // setIsPlaying2(newPlayState);
-
     if (!playStatus) {
       console.log('true');
       startPlaying();
@@ -135,7 +126,7 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
       stopPlaying();
       //audio.pause();
     }
-    playStatus = !playStatus;
+    // playStatus = !playStatus;
   };
 
   return (
