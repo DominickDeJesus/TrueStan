@@ -163,21 +163,14 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
   };
 
   return (
-<<<<<<< HEAD
+
     <div className="playHeader">
       <h1>Round {round}</h1>
 
       <div>
         <h2>Can you complete the catalogue?</h2>
       </div>
-
       {/* <div>{currentTrack.trackName}</div> */}
-
-=======
-    <div>
-      <h1>Round {round}</h1>
-      {/* <div>{currentTrack.trackName}</div> */}
->>>>>>> c813380b87c723f167f88d6fe8257510bcd1bc75
       <a>
         <button className="button" style={{ borderRadius: '50%' }}>
           <img
