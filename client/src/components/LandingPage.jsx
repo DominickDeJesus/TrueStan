@@ -35,6 +35,7 @@ const LandingPage = ({ search, setSearch, getArtist, setArtistObj }) => {
             type="text"
             placeholder="Search artist"
             onChange={handleChange}
+            autocomplete="off"
           />
         </Form.Row>
       </Form>

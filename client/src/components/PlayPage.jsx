@@ -35,10 +35,19 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
       return 1500;
     }
   };
-
+  /**Removes symbols and whitespace from a string.
+   * @returns the cleaned string
+   * @param {*} string
+   */
   const cleanInput = (string) => {
     return string.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
   };
+
+  /**Removes a substring that is enclosed in parentheses at the end of the string.
+   * @returns a string that has no case, symbols, whitespace,
+   *  or the substring enclosed in parenthesis.
+   * @param {*} string
+   */
   const removeParenthCont = (string) => {
     if (string.indexOf('(') === -1) {
       return '';
@@ -114,7 +123,6 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
   const setGame = () => {
     let answer = getRandomSong(artistObj.results);
     setCurrentTrack(answer);
-    //console.log(currentTrack.previewUrl);
   };
   /**Handles the submit for the guess. The function will make a call to check the geuss
    * and then set the game for the next round if guess was right.
@@ -124,7 +132,7 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
     event.preventDefault();
     stopPlaying();
     let guess = event.target.elements.searchbar.value;
-    console.log(guess);
+    console.log('The user guessed', guess);
     isGuessCorrect(guess.toString(), currentTrack.trackName.toString());
     setGame();
     event.target.elements.searchbar.value = '';
@@ -157,7 +165,7 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
   return (
     <div>
       <h1>Round {round}</h1>
-      <div>{currentTrack.trackName}</div>
+      {/* <div>{currentTrack.trackName}</div> */}
       <a>
         <button style={{ borderRadius: '50%' }}>
           <img
@@ -175,6 +183,7 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
             size="lg"
             type="text"
             placeholder="Guess that song!"
+            autocomplete="off"
           ></Form.Control>
         </Form.Row>
       </Form>
