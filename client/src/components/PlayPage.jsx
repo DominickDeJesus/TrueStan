@@ -16,7 +16,10 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
   let pickedSongIndecies = new Array(1);
   const audio = new Audio(currentTrack.previewUrl);
 
-  //console.log(artistObj);
+  /**Gets the time limit that is dependant on which round of the game it is.
+   * @returns A time in miliseconds
+   * @param {*} round
+   */
   const getTimeLimit = (round) => {
     if (round === 1) {
       console.log('Time is set to 15');
@@ -33,24 +36,52 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
     }
   };
 
+  const cleanInput = (string) => {
+    return string.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+  };
+  const removeParenthCont = (string) => {
+    if (string.indexOf('(') === -1) {
+      return '';
+    } else {
+      //console.log(string.substring(0, string.indexOf('(')))
+      return cleanInput(string.substring(0, string.indexOf('(')));
+    }
+  };
+
   /**Sets the next round if correct and send to game over page if guess is wrong.
    * @returns if the answers are the same
    * @param {*} usrGuess
    * @param {*} answer
    */
   const isGuessCorrect = (usrGuess, correctAns) => {
-    console.log('guess was: ' + correctAns.toString().toLowerCase());
-    console.log('Answer was: ' + correctAns.toString().toLowerCase());
-    if (
-      usrGuess.toString().toLowerCase() === correctAns.toString().toLowerCase()
-    ) {
+    console.log('Guess was: ', usrGuess.toLowerCase());
+    console.log('Answer was: ', correctAns.toLowerCase());
+
+    let guess = usrGuess;
+    let answer = correctAns;
+
+    // usrGuess = cleanInput(usrGuess);
+
+    if (removeParenthCont(answer) !== '') {
+      answer = removeParenthCont(answer);
+      console.log('removed parenths ', answer);
+    }
+    if (removeParenthCont(guess) !== '') {
+      guess = removeParenthCont(guess);
+      console.log('removed parenth from guess ', guess);
+    }
+
+    answer = cleanInput(answer);
+    guess = cleanInput(guess);
+
+    if (answer === guess) {
       setRound(round + 1);
-      console.log(`Guess is right! ${round}`);
+      console.log(`Guess is right! ${guess} = ${answer}`);
       return true;
     } else {
       setRound(-1);
       history.push('/gameover');
-      console.log(`Guess is wrong! ${round}`);
+      console.log(`Guess is wrong! ${guess} = ${answer}`);
       return false;
     }
   };
@@ -76,12 +107,10 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
     return artistSongArr;
   };
 
-  /**Remove symbols and case from string.
+  /**Remove symbols case, and white space from string.
    * @param {*} string
    */
-  const cleanInput = (string) => {
-    return string.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
-  };
+
   const setGame = () => {
     let answer = getRandomSong(artistObj.results);
     setCurrentTrack(answer);
@@ -96,7 +125,7 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
     stopPlaying();
     let guess = event.target.elements.searchbar.value;
     console.log(guess);
-    isGuessCorrect(guess.toString(), currentTrack.trackName);
+    isGuessCorrect(guess.toString(), currentTrack.trackName.toString());
     setGame();
     event.target.elements.searchbar.value = '';
   };
