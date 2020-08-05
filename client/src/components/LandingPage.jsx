@@ -23,7 +23,7 @@ const LandingPage = ({ search, setSearch, getArtist, setArtistObj }) => {
 
   return (
     <container>
-      <h1 data-text="ARE YOU A TRUE STAN">ARE YOU A TRUE STAN?</h1>
+      <h1>ARE YOU A TRUE STAN?</h1>
       <h2>
         search an artist<spam> ⚡ </spam>guess the song
       </h2>

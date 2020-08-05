@@ -11,9 +11,11 @@ const Music = ({ songUrl, imgUrl, onClicker }) => {
 
   return (
     <a>
-      <button style={{ borderRadius: '50%' }}>
+      <button
+        style={{ borderRadius: '50%', width: '300px', background: 'black' }}
+      >
         <img
-          style={{ borderRadius: '50%' }}
+          style={{ borderRadius: '50%', width: '500' }}
           src={imgUrl}
           alt="Pell"
           onClick={onClicker}

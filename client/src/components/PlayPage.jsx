@@ -156,13 +156,17 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
   };
 
   return (
-    <div>
-      <div>PlayPage</div>
+    <div className="playHeader">
       <h1>Round {round}</h1>
-      <div>{currentTrack.trackName}</div>
+
+      <div>
+        <h2>Can you complete the catalogue?</h2>
+      </div>
+
+      {/* <div>{currentTrack.trackName}</div> */}
 
       <a>
-        <button style={{ borderRadius: '50%' }}>
+        <button className="button" style={{ borderRadius: '50%' }}>
           <img
             style={{ borderRadius: '50%' }}
             src={currentTrack.artworkUrl100}
