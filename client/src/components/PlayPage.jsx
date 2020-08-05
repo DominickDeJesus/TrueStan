@@ -1,14 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { useHistory, Redirect } from 'react-router-dom';
-
-// import AudioPlayer from 'react-h5-audio-player';
-// import 'react-h5-audio-player/lib/styles.css';
-
-// //import 'react-h5-audio-player/lib/styles.less'
-// // import 'react-h5-audio-player/src/styles.scss' Use SASS
-
-//TODO: add mp3 player
 
 const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
   const history = useHistory();
@@ -21,7 +13,6 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
     return null;
   }
   let playStatus = false;
-  let timePlayed = 15;
   let pickedSongIndecies = new Array(1);
   const audio = new Audio(currentTrack.previewUrl);
 
@@ -64,7 +55,10 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
     }
   };
 
-  //FIX: function to initialize the player for the game
+  /**Get a rondom song from the array of song objects without repeats.
+   * @returns A single random song object
+   * @param {*} artistSongArr
+   */
   const getRandomSong = (artistSongArr) => {
     while (pickedSongIndecies.length < artistSongArr.length) {
       let randomIndex = Math.round(Math.random() * artistSongArr.length);
@@ -82,6 +76,12 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
     return artistSongArr;
   };
 
+  /**Remove symbols and case from string.
+   * @param {*} string
+   */
+  const cleanInput = (string) => {
+    return string.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+  };
   const setGame = () => {
     let answer = getRandomSong(artistObj.results);
     setCurrentTrack(answer);
@@ -98,7 +98,6 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
     console.log(guess);
     isGuessCorrect(guess.toString(), currentTrack.trackName);
     setGame();
-    //answer = getSongInOrder(artistObj?.results);
     event.target.elements.searchbar.value = '';
   };
 
@@ -120,13 +119,10 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
     if (!playStatus) {
       console.log('true');
       startPlaying();
-      //audio.play();
     } else {
       console.log('false');
       stopPlaying();
-      //audio.pause();
     }
-    // playStatus = !playStatus;
   };
 
   return (
