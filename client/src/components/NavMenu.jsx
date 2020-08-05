@@ -1,6 +1,5 @@
 import React from 'react';
 import Nav from 'react-bootstrap/Nav';
-import { Link } from 'react-router-dom';
 import truefan from './Logo/truestan.png';
 
 const NavMenu = () => {

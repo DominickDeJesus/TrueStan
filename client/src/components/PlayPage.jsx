@@ -75,15 +75,13 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
     let guess = usrGuess;
     let answer = correctAns;
 
-    // usrGuess = cleanInput(usrGuess);
-
     if (removeParenthCont(answer) !== '') {
       answer = removeParenthCont(answer);
-      console.log('removed parenths ', answer);
+      //console.log('removed parenths ', answer);
     }
     if (removeParenthCont(guess) !== '') {
       guess = removeParenthCont(guess);
-      console.log('removed parenth from guess ', guess);
+      //console.log('removed parenth from guess ', guess);
     }
 
     answer = cleanInput(answer);
@@ -165,10 +163,8 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
   const toggleClick = () => {
     console.log('isPlaying2:', playStatus);
     if (!playStatus) {
-      console.log('true');
       startPlaying();
     } else {
-      console.log('false');
       stopPlaying();
     }
   };
