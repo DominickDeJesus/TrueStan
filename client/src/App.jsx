@@ -18,6 +18,7 @@ const App = () => {
       .then((data) => {
         setArtistObj(data);
         setCurrentTrack(data.results[0]);
+        console.log(data);
       })
       .catch((err) => {
         console.log(err);

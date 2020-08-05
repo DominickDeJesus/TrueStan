@@ -10,6 +10,9 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
   if (!artistObj.results) {
     return <Redirect path="/" />;
   }
+  if (artistObj.resultCount === 0) {
+    return <h1>Couldn't Find Artist!</h1>;
+  }
   if (!currentTrack) {
     return null;
   }
@@ -115,7 +118,7 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
         console.log(pickedSongIndecies.length + randomIndex);
       }
     }
-    window.alert("Wow! Didn't think that would happen. I guess you won.");
+    window.alert('You won!!! Congratulations!');
     history.push('/');
     return artistSongArr;
   };
