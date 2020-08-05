@@ -31,8 +31,13 @@ h1 {
   margin-bottom: 0.5em;
   font-family: 'Rubik', sans-serif;
   font-size: 6rem;
+<<<<<<< HEAD
   text-shadow: 8px 8px black;
   padding-top: 5px;
+=======
+  text-shadow: black;
+  color: #e4e5e6;
+>>>>>>> c813380b87c723f167f88d6fe8257510bcd1bc75
 }
 
 h2 {
@@ -42,6 +47,7 @@ h2 {
   color: #ffde59;
   text-align: center;
 }
+<<<<<<< HEAD
 
 h2 spam {
   font-size: 0.5em;
@@ -61,6 +67,11 @@ button {
   100% {
     transform: rotate(5400deg);
   }
+=======
+
+h2 span {
+  font-size: 0.5em;
+>>>>>>> c813380b87c723f167f88d6fe8257510bcd1bc75
 }
 
 .playHeader {
