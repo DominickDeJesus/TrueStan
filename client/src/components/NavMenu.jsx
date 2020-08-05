@@ -6,11 +6,9 @@ import truefan from './Logo/truestan.png';
 const NavMenu = () => {
   return (
     <Nav defaultActiveKey="/home" as="ul">
-      <div>
-        <Link to="">
-          <img alt="Logo" width="90px" src={truefan} />
-        </Link>
-      </div>
+      <a href="/">
+        <img alt="Logo" width="90px" src={truefan} />
+      </a>
     </Nav>
   );
 };
