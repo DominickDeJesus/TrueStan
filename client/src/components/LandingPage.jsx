@@ -1,11 +1,8 @@
 import React from 'react';
-import { Form, FormControl } from 'react-bootstrap';
+import { Form, FormControl, Container } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 
-//the landing page for the song game
-
 const LandingPage = ({ search, setSearch, getArtist, setArtistObj }) => {
-  //Fix: make this to make it work with a parameter of the users choosing
   const history = useHistory();
   const handleChange = (e) => {
     setSearch(e.target.value);
@@ -14,10 +11,8 @@ const LandingPage = ({ search, setSearch, getArtist, setArtistObj }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
-    console.log('search is :', search);
     if (search !== '') {
       getArtist(search).then(() => {
-        form.reset();
         history.push('/play');
       });
     }
@@ -25,7 +20,7 @@ const LandingPage = ({ search, setSearch, getArtist, setArtistObj }) => {
   };
 
   return (
-    <container>
+    <Container>
       <h1 data-text="ARE YOU A TRUE STAN">ARE YOU A TRUE STAN?</h1>
       <h2>
         search an artist
@@ -47,7 +42,7 @@ const LandingPage = ({ search, setSearch, getArtist, setArtistObj }) => {
           />
         </Form.Row>
       </Form>
-    </container>
+    </Container>
   );
 };
 export default LandingPage;

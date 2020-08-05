@@ -5,25 +5,32 @@ import { useHistory, Redirect } from 'react-router-dom';
 const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
   const history = useHistory();
   const [round, setRound] = useState(1);
+  const handleClick = () => {
+    history.push('/');
+  };
 
   //These if's check if the data is there and ready to use.
   if (!artistObj.results) {
-    return <Redirect path="/" />;
+    return <Redirect to="/" />;
   }
   if (artistObj.resultCount === 0) {
-    return <h1>Couldn't Find Artist!</h1>;
+    return (
+      <>
+        <h1>Couldn't Find Artist!</h1>
+        <button className="Buttons" onClick={handleClick} />
+      </>
+    );
   }
+
   if (!currentTrack) {
     return null;
   }
   if (!currentTrack.previewUrl) {
     return null;
   }
-
+  let pickedSongIndecies = [0];
   let playStatus = false;
-  let pickedSongIndecies = new Array(1);
   const audio = new Audio(currentTrack.previewUrl);
-
   /**Gets the time limit that is dependant on which round of the game it is.
    * @returns A time in miliseconds
    * @param {*} round
@@ -92,12 +99,10 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
 
     if (answer === guess) {
       setRound(round + 1);
-      console.log(`Guess is right! ${guess} = ${answer}`);
       return true;
     } else {
       setRound(-1);
       history.push('/gameover');
-      console.log(`Guess is wrong! ${guess} = ${answer}`);
       return false;
     }
   };
@@ -107,20 +112,22 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
    * @param {*} artistSongArr
    */
   const getRandomSong = (artistSongArr) => {
+    console.log(pickedSongIndecies.toString());
+    console.log(pickedSongIndecies.length);
     while (pickedSongIndecies.length < artistSongArr.length) {
       let randomIndex = Math.round(Math.random() * artistSongArr.length);
-      console.log(pickedSongIndecies.indexOf(randomIndex));
+      console.log('get random index', pickedSongIndecies.indexOf(randomIndex));
+      console.log('picked inex array', pickedSongIndecies.toString());
       //if the random index is not in the picked song inex then put it in there and retunr the random song
-      if (pickedSongIndecies.indexOf(randomIndex) < 0) {
+      if (artistSongArr.indexOf(randomIndex) < 0) {
         pickedSongIndecies.push(randomIndex);
+        console.log('I should have changed ', pickedSongIndecies);
         return artistSongArr[randomIndex];
       } else {
         console.log(pickedSongIndecies.length + randomIndex);
       }
     }
-    window.alert('You won!!! Congratulations!');
-    history.push('/');
-    return artistSongArr;
+    history.push('/win');
   };
 
   /**Remove symbols case, and white space from string.
@@ -139,9 +146,11 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
     event.preventDefault();
     stopPlaying();
     let guess = event.target.elements.searchbar.value;
-    console.log('The user guessed', guess);
-    isGuessCorrect(guess.toString(), currentTrack.trackName.toString());
-    setGame();
+    if (guess !== '') {
+      console.log('The user guessed', guess);
+      isGuessCorrect(guess.toString(), currentTrack.trackName.toString());
+      setGame();
+    }
     event.target.elements.searchbar.value = '';
   };
 
@@ -174,8 +183,7 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
   return (
     <div>
       <h1>Round {round}</h1>
-      {/* <div>{currentTrack.trackName}</div> */}
-
+      <div>{currentTrack.trackName}</div>
       <button style={{ borderRadius: '50%' }}>
         <img
           style={{ borderRadius: '50%' }}
