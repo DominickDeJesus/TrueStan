@@ -31,8 +31,9 @@ h1 {
   margin-bottom: 0.5em;
   font-family: 'Rubik', sans-serif;
   font-size: 6rem;
-  text-shadow: black;
-  color: #e4e5e6;
+  text-shadow: 8px 8px black;
+  padding-top: 5px;
+
 }
 
 h2 {
@@ -47,4 +48,24 @@ h2 span {
   font-size: 0.5em;
 }
 
-/* END  */
+button {
+  background-image: radial-gradient(#282828, black);
+  width: 350px;
+  height: 350px;
+  margin-top: 20;
+  border: none;
+  animation: turntable 30s infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes turntable {
+  100% {
+    transform: rotate(5400deg);
+  }
+}
+
+.playHeader {
+  margin-bottom: 200px;
+}
+
+

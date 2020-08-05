@@ -22,6 +22,7 @@ const LandingPage = ({ search, setSearch, getArtist, setArtistObj }) => {
   return (
     <Container>
       <h1 data-text="ARE YOU A TRUE STAN">ARE YOU A TRUE STAN?</h1>
+
       <h2>
         search an artist
         <span role="img" aria-label="lightning">
