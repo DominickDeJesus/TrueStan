@@ -164,7 +164,6 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
    * the pause and play functions.
    */
   const toggleClick = () => {
-    console.log('isPlaying2:', playStatus);
     if (!playStatus) {
       startPlaying();
     } else {

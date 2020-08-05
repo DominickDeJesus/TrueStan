@@ -14,10 +14,14 @@ const LandingPage = ({ search, setSearch, getArtist, setArtistObj }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
-    getArtist(search).then(() => {
-      form.reset();
-      history.push('/play');
-    });
+    console.log('search is :', search);
+    if (search !== '') {
+      getArtist(search).then(() => {
+        form.reset();
+        history.push('/play');
+      });
+    }
+    form.reset();
   };
 
   return (
