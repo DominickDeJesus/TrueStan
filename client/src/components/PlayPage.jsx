@@ -2,7 +2,12 @@ import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { useHistory, Redirect } from 'react-router-dom';
 
-const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
+const PlayPage = ({
+  artistObj,
+  currentTrack,
+  setCurrentTrack,
+  pickedSongIndecies
+}) => {
   const history = useHistory();
   const [round, setRound] = useState(1);
   const handleClick = () => {
@@ -28,7 +33,6 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
   if (!currentTrack.previewUrl) {
     return null;
   }
-  let pickedSongIndecies = [0];
   let playStatus = false;
   const audio = new Audio(currentTrack.previewUrl);
   /**Gets the time limit that is dependant on which round of the game it is.
@@ -79,9 +83,6 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
    * @param {*} answer
    */
   const isGuessCorrect = (usrGuess, correctAns) => {
-    console.log('Guess was: ', usrGuess.toLowerCase());
-    console.log('Answer was: ', correctAns.toLowerCase());
-
     let guess = usrGuess;
     let answer = correctAns;
 
@@ -112,19 +113,13 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
    * @param {*} artistSongArr
    */
   const getRandomSong = (artistSongArr) => {
-    console.log(pickedSongIndecies.toString());
-    console.log(pickedSongIndecies.length);
     while (pickedSongIndecies.length < artistSongArr.length) {
       let randomIndex = Math.round(Math.random() * artistSongArr.length);
-      console.log('get random index', pickedSongIndecies.indexOf(randomIndex));
-      console.log('picked inex array', pickedSongIndecies.toString());
       //if the random index is not in the picked song inex then put it in there and retunr the random song
       if (artistSongArr.indexOf(randomIndex) < 0) {
         pickedSongIndecies.push(randomIndex);
-        console.log('I should have changed ', pickedSongIndecies);
+        //console.log('I should have changed ', pickedSongIndecies);
         return artistSongArr[randomIndex];
-      } else {
-        console.log(pickedSongIndecies.length + randomIndex);
       }
     }
     history.push('/win');
@@ -147,7 +142,6 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
     stopPlaying();
     let guess = event.target.elements.searchbar.value;
     if (guess !== '') {
-      console.log('The user guessed', guess);
       isGuessCorrect(guess.toString(), currentTrack.trackName.toString());
       setGame();
     }

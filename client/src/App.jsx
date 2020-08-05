@@ -12,6 +12,8 @@ const App = () => {
   const [search, setSearch] = useState('');
   const [artistObj, setArtistObj] = useState({});
   const [currentTrack, setCurrentTrack] = useState({});
+  const pickedSongIndecies = useState([0]);
+
   function getArtist(search) {
     return fetch(`/api/trackNames?search=${search}`)
       .then((results) => results.json())
@@ -56,6 +58,7 @@ const App = () => {
                   artistObj={artistObj}
                   currentTrack={currentTrack}
                   setCurrentTrack={setCurrentTrack}
+                  pickedSongIndecies={pickedSongIndecies}
                 />
               );
             }}
