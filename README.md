@@ -1,5 +1,7 @@
 # TrueStan
 
+TrueStan is the ultimate test of your music fandom. It is a react web app game that will test you on how well you know an artists songs. Pick an artist, listen to the sound clip, and guess the song. The more songs you guess correctly, the less of the song you get to hear in the next round.
+
 ## Setup
 
 - `git clone` this repo
