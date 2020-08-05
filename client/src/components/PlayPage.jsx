@@ -6,12 +6,17 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
   const history = useHistory();
   const [round, setRound] = useState(1);
 
+  //These if's check if the data is there and ready to use.
   if (!artistObj.results) {
     return <Redirect path="/" />;
+  }
+  if (!currentTrack) {
+    return null;
   }
   if (!currentTrack.previewUrl) {
     return null;
   }
+
   let playStatus = false;
   let pickedSongIndecies = new Array(1);
   const audio = new Audio(currentTrack.previewUrl);
@@ -35,6 +40,7 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
       return 1500;
     }
   };
+
   /**Removes symbols and whitespace from a string.
    * @returns the cleaned string
    * @param {*} string
@@ -119,11 +125,11 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
   /**Remove symbols case, and white space from string.
    * @param {*} string
    */
-
   const setGame = () => {
     let answer = getRandomSong(artistObj.results);
     setCurrentTrack(answer);
   };
+
   /**Handles the submit for the guess. The function will make a call to check the geuss
    * and then set the game for the next round if guess was right.
    * @param {*} event
@@ -138,6 +144,7 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
     event.target.elements.searchbar.value = '';
   };
 
+  /**Start playing the song on a timer*/
   const startPlaying = () => {
     clearTimeout(window.playerTimeOut);
     audio.play();
@@ -145,12 +152,16 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
     playStatus = true;
   };
 
+  /**Stop playing the song and reset it to the begining */
   const stopPlaying = () => {
     audio.pause();
     audio.currentTime = 0;
     playStatus = false;
   };
 
+  /**Handles the click event of the button. It will toggle between
+   * the pause and play functions.
+   */
   const toggleClick = () => {
     console.log('isPlaying2:', playStatus);
     if (!playStatus) {
@@ -166,16 +177,16 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
     <div>
       <h1>Round {round}</h1>
       {/* <div>{currentTrack.trackName}</div> */}
-      <a>
-        <button style={{ borderRadius: '50%' }}>
-          <img
-            style={{ borderRadius: '50%' }}
-            src={currentTrack.artworkUrl100}
-            alt="Album Artwork"
-            onClick={toggleClick}
-          />
-        </button>
-      </a>
+
+      <button style={{ borderRadius: '50%' }}>
+        <img
+          style={{ borderRadius: '50%' }}
+          src={currentTrack.artworkUrl100}
+          alt="Album Artwork"
+          onClick={toggleClick}
+        />
+      </button>
+
       <Form onSubmit={handleSubmit}>
         <Form.Row>
           <Form.Control
@@ -183,7 +194,7 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
             size="lg"
             type="text"
             placeholder="Guess that song!"
-            autocomplete="off"
+            autoComplete="off"
           ></Form.Control>
         </Form.Row>
       </Form>

@@ -7,7 +7,7 @@ const NavMenu = () => {
   return (
     <Nav defaultActiveKey="/home" as="ul">
       <div>
-        <Link to="/">
+        <Link to="">
           <img alt="Logo" width="90px" src={truefan} />
         </Link>
       </div>

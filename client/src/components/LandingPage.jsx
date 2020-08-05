@@ -7,7 +7,6 @@ import { useHistory } from 'react-router-dom';
 const LandingPage = ({ search, setSearch, getArtist, setArtistObj }) => {
   //Fix: make this to make it work with a parameter of the users choosing
   const history = useHistory();
-
   const handleChange = (e) => {
     setSearch(e.target.value);
   };
@@ -25,7 +24,12 @@ const LandingPage = ({ search, setSearch, getArtist, setArtistObj }) => {
     <container>
       <h1 data-text="ARE YOU A TRUE STAN">ARE YOU A TRUE STAN?</h1>
       <h2>
-        search an artist<span> ⚡ </span>guess the song
+        search an artist
+        <span role="img" aria-label="lightning">
+          {' '}
+          ⚡{' '}
+        </span>
+        guess the song
       </h2>
       <Form onSubmit={handleSubmit}>
         <Form.Row>
@@ -35,7 +39,7 @@ const LandingPage = ({ search, setSearch, getArtist, setArtistObj }) => {
             type="text"
             placeholder="Search artist"
             onChange={handleChange}
-            autocomplete="off"
+            autoComplete="off"
           />
         </Form.Row>
       </Form>
