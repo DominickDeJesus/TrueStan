@@ -1,14 +1,12 @@
 /* J*/
 @import url('https://fonts.googleapis.com/css?family=Pirata+One|Rubik:900');
 
- html {
+html {
   align-items: center;
-  background-color: #141E30;
-  background: linear-gradient(to right, #24243e, #141E30, #0f0c29);
-  color: #FFFAFF; 
-
+  background-color: #141e30;
+  background: linear-gradient(to right, #24243e, #141e30, #0f0c29);
+  color: #fffaff;
 }
-
 
 .container form input {
   justify-content: center;
@@ -18,7 +16,7 @@
   text-align: center;
   font-size: x-large;
   color: #080808;
-  background-color: #FFFAFF;
+  background-color: #fffaff;
   border-style: none;
   font-style: italic;
   margin-top: 100px;
@@ -28,28 +26,25 @@
   justify-content: center;
   text-align: center;
 }
- h1 {
+h1 {
   text-transform: Uppercase;
-  margin-bottom: .5em;
+  margin-bottom: 0.5em;
   font-family: 'Rubik', sans-serif;
   font-size: 6rem;
   text-shadow: black;
-  color: #E4E5E6; 
+  color: #e4e5e6;
 }
- 
-  
-  h2 {
+
+h2 {
   margin-top: -1.15em;
   font-family: 'Pirata One', cursive;
   font-size: 3rem;
-  color: #FFDE59;
-  text-align: center;}
-  
-  h2 spam {
-    font-size: .5em; 
-  }
+  color: #ffde59;
+  text-align: center;
+}
 
-
-
+h2 span {
+  font-size: 0.5em;
+}
 
 /* END  */

@@ -1,34 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { useHistory, Redirect } from 'react-router-dom';
-import Music from './Music';
-
-// import AudioPlayer from 'react-h5-audio-player';
-// import 'react-h5-audio-player/lib/styles.css';
-
-// //import 'react-h5-audio-player/lib/styles.less'
-// // import 'react-h5-audio-player/src/styles.scss' Use SASS
-
-//TODO: add mp3 player
 
 const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
   const history = useHistory();
-  const audioPlayerRef = useRef();
   const [round, setRound] = useState(1);
-  const [timePlayed, setTimePlayed] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
-  // const [currentTrack, setCurrentTrack] = useState({});
-  const [isPlaying2, setIsPlaying2] = useState(false);
-  let playStatus = false;
-
-  // useEffect(() => {
-  //   setCurrentTrack(artistObj.results[0]);
-  //   console.log(artistObj.results[0]);
-  // }, []);
-
-  // useEffect(() => {
-  //   audioPlayerRef.current.onTrackChange();
-  // }, [currentTrack]);
 
   if (!artistObj.results) {
     return <Redirect path="/" />;
@@ -36,22 +12,48 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
   if (!currentTrack.previewUrl) {
     return null;
   }
-
+  let playStatus = false;
   let pickedSongIndecies = new Array(1);
-  console.log(artistObj);
+  const audio = new Audio(currentTrack.previewUrl);
+
+  /**Gets the time limit that is dependant on which round of the game it is.
+   * @returns A time in miliseconds
+   * @param {*} round
+   */
   const getTimeLimit = (round) => {
     if (round === 1) {
       console.log('Time is set to 15');
       return 15000;
-    } else if (round < 3) {
+    } else if (round < 4) {
       console.log('Time is set to 10');
       return 10000;
-    } else if (round < 6) {
+    } else if (round < 8) {
       console.log('Time is set to 5');
       return 5000;
     } else {
-      console.log('Time is set to 1');
+      console.log('Time is set to 1.5');
       return 1500;
+    }
+  };
+  /**Removes symbols and whitespace from a string.
+   * @returns the cleaned string
+   * @param {*} string
+   */
+  const cleanInput = (string) => {
+    return string.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+  };
+
+  /**Removes a substring that is enclosed in parentheses at the end of the string.
+   * @returns a string that has no case, symbols, whitespace,
+   *  or the substring enclosed in parenthesis.
+   * @param {*} string
+   */
+  const removeParenthCont = (string) => {
+    if (string.indexOf('(') === -1) {
+      return '';
+    } else {
+      //console.log(string.substring(0, string.indexOf('(')))
+      return cleanInput(string.substring(0, string.indexOf('(')));
     }
   };
 
@@ -61,23 +63,42 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
    * @param {*} answer
    */
   const isGuessCorrect = (usrGuess, correctAns) => {
-    console.log('guess was: ' + correctAns.toString().toLowerCase());
-    console.log('Answer was: ' + correctAns.toString().toLowerCase());
-    if (
-      usrGuess.toString().toLowerCase() === correctAns.toString().toLowerCase()
-    ) {
+    console.log('Guess was: ', usrGuess.toLowerCase());
+    console.log('Answer was: ', correctAns.toLowerCase());
+
+    let guess = usrGuess;
+    let answer = correctAns;
+
+    // usrGuess = cleanInput(usrGuess);
+
+    if (removeParenthCont(answer) !== '') {
+      answer = removeParenthCont(answer);
+      console.log('removed parenths ', answer);
+    }
+    if (removeParenthCont(guess) !== '') {
+      guess = removeParenthCont(guess);
+      console.log('removed parenth from guess ', guess);
+    }
+
+    answer = cleanInput(answer);
+    guess = cleanInput(guess);
+
+    if (answer === guess) {
       setRound(round + 1);
-      console.log(`Guess is right! ${round}`);
+      console.log(`Guess is right! ${guess} = ${answer}`);
       return true;
     } else {
       setRound(-1);
       history.push('/gameover');
-      console.log(`Guess is wrong! ${round}`);
+      console.log(`Guess is wrong! ${guess} = ${answer}`);
       return false;
     }
   };
 
-  //FIX: function to initialize the player for the game
+  /**Get a rondom song from the array of song objects without repeats.
+   * @returns A single random song object
+   * @param {*} artistSongArr
+   */
   const getRandomSong = (artistSongArr) => {
     while (pickedSongIndecies.length < artistSongArr.length) {
       let randomIndex = Math.round(Math.random() * artistSongArr.length);
@@ -95,10 +116,13 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
     return artistSongArr;
   };
 
+  /**Remove symbols case, and white space from string.
+   * @param {*} string
+   */
+
   const setGame = () => {
     let answer = getRandomSong(artistObj.results);
     setCurrentTrack(answer);
-    console.log(currentTrack.previewUrl);
   };
   /**Handles the submit for the guess. The function will make a call to check the geuss
    * and then set the game for the next round if guess was right.
@@ -106,79 +130,52 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
    */
   const handleSubmit = (event) => {
     event.preventDefault();
+    stopPlaying();
     let guess = event.target.elements.searchbar.value;
-    console.log(guess);
-    isGuessCorrect(guess.toString(), currentTrack.trackName);
+    console.log('The user guessed', guess);
+    isGuessCorrect(guess.toString(), currentTrack.trackName.toString());
     setGame();
-    //answer = getSongInOrder(artistObj?.results);
-
-    //setSong(getRandomSong(), getTimeLimit(round));
-    //    let nextSong = getRandomSong().previewUrl;
-    //    setSongUrl(nextSong);
-
     event.target.elements.searchbar.value = '';
   };
 
   const startPlaying = () => {
     clearTimeout(window.playerTimeOut);
-    audioPlayerRef.this.audio.play();
-    setIsPlaying(true);
-    const newTimePlayed = timePlayed + 1;
-    setTimePlayed(newTimePlayed);
+    audio.play();
     window.playerTimeOut = setTimeout(stopPlaying, getTimeLimit(round));
+    playStatus = true;
   };
 
   const stopPlaying = () => {
-    audioPlayerRef.current.audio.pause();
-    audioPlayerRef.current.audio.currentTime = 0;
-    //setIsPlaying(false);
+    audio.pause();
+    audio.currentTime = 0;
+    playStatus = false;
   };
 
-  const audio = new Audio(currentTrack.previewUrl);
-
-  const testOnClick = () => {
+  const toggleClick = () => {
     console.log('isPlaying2:', playStatus);
-    // const newPlayState = !isPlaying2;
-    // setIsPlaying2(newPlayState);
-
     if (!playStatus) {
       console.log('true');
-      audio.play();
+      startPlaying();
     } else {
       console.log('false');
-      audio.pause();
+      stopPlaying();
     }
-    playStatus = !playStatus;
-
-    // const newPlayState = !isPlaying;
-    // setIsPlaying(newPlayState);
-    // newPlayState ? audio.play() : audio.pause();
   };
 
   return (
     <div>
-      <div>PlayPage</div>
       <h1>Round {round}</h1>
-      <div>{currentTrack.trackName}</div>
-
+      {/* <div>{currentTrack.trackName}</div> */}
       <a>
         <button style={{ borderRadius: '50%' }}>
           <img
             style={{ borderRadius: '50%' }}
             src={currentTrack.artworkUrl100}
-            alt="Pell"
-            onClick={testOnClick}
+            alt="Album Artwork"
+            onClick={toggleClick}
           />
         </button>
       </a>
-
-      {/* <AudioPlayer
-        ref={audioPlayerRef}
-        src={songUrl}
-        onPlay={startPlaying}
-        onPause={stopPlaying}
-        // other props here
-      /> */}
       <Form onSubmit={handleSubmit}>
         <Form.Row>
           <Form.Control
@@ -186,6 +183,7 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
             size="lg"
             type="text"
             placeholder="Guess that song!"
+            autocomplete="off"
           ></Form.Control>
         </Form.Row>
       </Form>

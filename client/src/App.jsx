@@ -1,21 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import GameOverPage from './components/GameOverPage';
 import PlayPage from './components/PlayPage';
 import LandingPage from './components/LandingPage';
 import { Container } from 'react-bootstrap';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect
-} from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import NavMenu from './components/NavMenu';
-import { useHistory } from 'react-router';
 import './App.css';
-import bootstrap from 'react-bootstrap';
+//import bootstrap from 'react-bootstrap';
 
 const App = () => {
-  const history = useHistory();
   const [search, setSearch] = useState('');
   const [artistObj, setArtistObj] = useState({});
   const [currentTrack, setCurrentTrack] = useState({});

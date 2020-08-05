@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Form, FormControl } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 
@@ -25,7 +25,7 @@ const LandingPage = ({ search, setSearch, getArtist, setArtistObj }) => {
     <container>
       <h1 data-text="ARE YOU A TRUE STAN">ARE YOU A TRUE STAN?</h1>
       <h2>
-        search an artist<spam> ⚡ </spam>guess the song
+        search an artist<span> ⚡ </span>guess the song
       </h2>
       <Form onSubmit={handleSubmit}>
         <Form.Row>
@@ -35,6 +35,7 @@ const LandingPage = ({ search, setSearch, getArtist, setArtistObj }) => {
             type="text"
             placeholder="Search artist"
             onChange={handleChange}
+            autocomplete="off"
           />
         </Form.Row>
       </Form>
