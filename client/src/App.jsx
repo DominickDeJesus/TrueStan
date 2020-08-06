@@ -2,16 +2,17 @@ import React, { useState } from 'react';
 import GameOverPage from './components/GameOverPage';
 import PlayPage from './components/PlayPage';
 import LandingPage from './components/LandingPage';
+import WinningPage from './components/WinningPage';
 import { Container } from 'react-bootstrap';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import NavMenu from './components/NavMenu';
 import './App.css';
-//import bootstrap from 'react-bootstrap';
 
 const App = () => {
   const [search, setSearch] = useState('');
   const [artistObj, setArtistObj] = useState({});
   const [currentTrack, setCurrentTrack] = useState({});
+  const pickedSongIndecies = useState([0]);
 
   function getArtist(search) {
     return fetch(`/api/trackNames?search=${search}`)
@@ -46,6 +47,7 @@ const App = () => {
             }}
           />
           <Route exact path="/gameover" component={GameOverPage} />
+          <Route exact path="/win" component={WinningPage} />
           <Route
             exact
             path="/play"
@@ -56,6 +58,7 @@ const App = () => {
                   artistObj={artistObj}
                   currentTrack={currentTrack}
                   setCurrentTrack={setCurrentTrack}
+                  pickedSongIndecies={pickedSongIndecies}
                 />
               );
             }}

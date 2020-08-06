@@ -2,20 +2,39 @@ import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { useHistory, Redirect } from 'react-router-dom';
 
-const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
+const PlayPage = ({
+  artistObj,
+  currentTrack,
+  setCurrentTrack,
+  pickedSongIndecies
+}) => {
   const history = useHistory();
   const [round, setRound] = useState(1);
+  const handleClick = () => {
+    history.push('/');
+  };
 
+  //These if's check if the data is there and ready to use.
   if (!artistObj.results) {
-    return <Redirect path="/" />;
+    return <Redirect to="/" />;
+  }
+  if (artistObj.resultCount === 0) {
+    return (
+      <>
+        <h1>Couldn't Find Artist!</h1>
+        <button className="Buttons" onClick={handleClick} />
+      </>
+    );
+  }
+
+  if (!currentTrack) {
+    return null;
   }
   if (!currentTrack.previewUrl) {
     return null;
   }
   let playStatus = false;
-  let pickedSongIndecies = new Array(1);
   const audio = new Audio(currentTrack.previewUrl);
-
   /**Gets the time limit that is dependant on which round of the game it is.
    * @returns A time in miliseconds
    * @param {*} round
@@ -35,6 +54,7 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
       return 1500;
     }
   };
+
   /**Removes symbols and whitespace from a string.
    * @returns the cleaned string
    * @param {*} string
@@ -63,21 +83,16 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
    * @param {*} answer
    */
   const isGuessCorrect = (usrGuess, correctAns) => {
-    console.log('Guess was: ', usrGuess.toLowerCase());
-    console.log('Answer was: ', correctAns.toLowerCase());
-
     let guess = usrGuess;
     let answer = correctAns;
 
-    // usrGuess = cleanInput(usrGuess);
-
     if (removeParenthCont(answer) !== '') {
       answer = removeParenthCont(answer);
-      console.log('removed parenths ', answer);
+      //console.log('removed parenths ', answer);
     }
     if (removeParenthCont(guess) !== '') {
       guess = removeParenthCont(guess);
-      console.log('removed parenth from guess ', guess);
+      //console.log('removed parenth from guess ', guess);
     }
 
     answer = cleanInput(answer);
@@ -85,12 +100,10 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
 
     if (answer === guess) {
       setRound(round + 1);
-      console.log(`Guess is right! ${guess} = ${answer}`);
       return true;
     } else {
       setRound(-1);
       history.push('/gameover');
-      console.log(`Guess is wrong! ${guess} = ${answer}`);
       return false;
     }
   };
@@ -102,28 +115,24 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
   const getRandomSong = (artistSongArr) => {
     while (pickedSongIndecies.length < artistSongArr.length) {
       let randomIndex = Math.round(Math.random() * artistSongArr.length);
-      console.log(pickedSongIndecies.indexOf(randomIndex));
       //if the random index is not in the picked song inex then put it in there and retunr the random song
-      if (pickedSongIndecies.indexOf(randomIndex) < 0) {
+      if (artistSongArr.indexOf(randomIndex) < 0) {
         pickedSongIndecies.push(randomIndex);
+        //console.log('I should have changed ', pickedSongIndecies);
         return artistSongArr[randomIndex];
-      } else {
-        console.log(pickedSongIndecies.length + randomIndex);
       }
     }
-    window.alert("Wow! Didn't think that would happen. I guess you won.");
-    history.push('/');
-    return artistSongArr;
+    history.push('/win');
   };
 
   /**Remove symbols case, and white space from string.
    * @param {*} string
    */
-
   const setGame = () => {
     let answer = getRandomSong(artistObj.results);
     setCurrentTrack(answer);
   };
+
   /**Handles the submit for the guess. The function will make a call to check the geuss
    * and then set the game for the next round if guess was right.
    * @param {*} event
@@ -132,12 +141,14 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
     event.preventDefault();
     stopPlaying();
     let guess = event.target.elements.searchbar.value;
-    console.log('The user guessed', guess);
-    isGuessCorrect(guess.toString(), currentTrack.trackName.toString());
-    setGame();
+    if (guess !== '') {
+      isGuessCorrect(guess.toString(), currentTrack.trackName.toString());
+      setGame();
+    }
     event.target.elements.searchbar.value = '';
   };
 
+  /**Start playing the song on a timer*/
   const startPlaying = () => {
     clearTimeout(window.playerTimeOut);
     audio.play();
@@ -145,19 +156,20 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
     playStatus = true;
   };
 
+  /**Stop playing the song and reset it to the begining */
   const stopPlaying = () => {
     audio.pause();
     audio.currentTime = 0;
     playStatus = false;
   };
 
+  /**Handles the click event of the button. It will toggle between
+   * the pause and play functions.
+   */
   const toggleClick = () => {
-    console.log('isPlaying2:', playStatus);
     if (!playStatus) {
-      console.log('true');
       startPlaying();
     } else {
-      console.log('false');
       stopPlaying();
     }
   };
@@ -165,6 +177,9 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
   return (
     <div className="playHeader">
       <h1>Round {round}</h1>
+      <div>
+        <h2>Can you complete the catalogue?</h2>
+      </div>
       {/* <div>{currentTrack.trackName}</div> */}
       <h2>Click the record to play!</h2>
       <a>
@@ -188,7 +203,7 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
             size="lg"
             type="text"
             placeholder="Guess that song!"
-            autocomplete="off"
+            autoComplete="off"
           ></Form.Control>
         </Form.Row>
       </Form>
