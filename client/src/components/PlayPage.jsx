@@ -177,6 +177,7 @@ const PlayPage = ({ artistObj, currentTrack, setCurrentTrack }) => {
             style={{ borderRadius: '50%' }}
             src={currentTrack.artworkUrl100}
             alt="Album Artwork"
+            onClick={toggleClick}
           />
         </button>
       </a>
