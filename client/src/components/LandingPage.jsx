@@ -20,7 +20,7 @@ const LandingPage = ({ search, setSearch, getArtist, setArtistObj }) => {
   };
 
   return (
-    <Container>
+    <Container style={{ paddingTop: '6.0em' }}>
       <h1 data-text="ARE YOU A TRUE STAN">ARE YOU A TRUE STAN?</h1>
 
       <h2>

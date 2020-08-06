@@ -21,8 +21,10 @@ const PlayPage = ({
   if (artistObj.resultCount === 0) {
     return (
       <>
-        <h1>Couldn't Find Artist!</h1>
-        <button className="Buttons" onClick={handleClick} />
+        <h1 style={{ paddingTop: '150px' }}>Couldn't Find Artist!</h1>
+        <h2 className="Buttons" style={{ padding: '0' }} onClick={handleClick}>
+          Click Here To Search Again
+        </h2>
       </>
     );
   }
@@ -116,7 +118,7 @@ const PlayPage = ({
     while (pickedSongIndecies.length < artistSongArr.length) {
       let randomIndex = Math.round(Math.random() * artistSongArr.length);
       //if the random index is not in the picked song inex then put it in there and retunr the random song
-      if (artistSongArr.indexOf(randomIndex) < 0) {
+      if (pickedSongIndecies.indexOf(randomIndex) < 0) {
         pickedSongIndecies.push(randomIndex);
         //console.log('I should have changed ', pickedSongIndecies);
         return artistSongArr[randomIndex];
@@ -177,22 +179,19 @@ const PlayPage = ({
   return (
     <div className="playHeader">
       <h1>Round {round}</h1>
-      <div>
-        <h2>Can you complete the catalogue?</h2>
-      </div>
+
       {/* <div>{currentTrack.trackName}</div> */}
-      <h2>Click the record to play!</h2>
+      <h2>Click the record to play</h2>
       <a>
         <button
           className="button"
-          style={{ borderRadius: '50%' }}
+          style={{ borderRadius: '50%', outline: 'none' }}
           onClick={toggleClick}
         >
           <img
             style={{ borderRadius: '50%' }}
             src={currentTrack.artworkUrl100}
             alt="Album Artwork"
-            onClick={toggleClick}
           />
         </button>
       </a>
