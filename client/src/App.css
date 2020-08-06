@@ -10,36 +10,42 @@ html {
 
 .container form input {
   justify-content: center;
-  width: 500px;
-  height: 75px;
+  width: 450px;
+  height: 65px;
   border-radius: 100px;
+  outline: none;
   text-align: center;
   font-size: x-large;
   color: #080808;
   background-color: #fffaff;
   border-style: none;
   font-style: italic;
-  margin-top: 100px;
+  margin-top: 50px;
 }
 
+.nav {
+  margin-bottom: 0;
+  margin-top: 0;
+}
 .container {
+  margin-top: 0em;
   justify-content: center;
   text-align: center;
 }
 h1 {
   text-transform: Uppercase;
   margin-bottom: 0.5em;
+  margin-top: 0;
   font-family: 'Rubik', sans-serif;
-  font-size: 6rem;
+  font-size: 5rem;
   text-shadow: 8px 8px black;
-  padding-top: 5px;
-
+  padding-top: 0px;
 }
 
 h2 {
   margin-top: -1.15em;
   font-family: 'Pirata One', cursive;
-  font-size: 3rem;
+  font-size: 2rem;
   color: #ffde59;
   text-align: center;
 }
@@ -47,8 +53,11 @@ h2 {
 h2 span {
   font-size: 0.5em;
 }
-
-button {
+.Buttons {
+  text-decoration: none;
+  padding-top: 200px;
+}
+.button {
   background-image: radial-gradient(#282828, black);
   width: 350px;
   height: 350px;
@@ -57,15 +66,24 @@ button {
   animation: turntable 30s infinite;
   animation-timing-function: linear;
 }
-
 @keyframes turntable {
   100% {
-    transform: rotate(5400deg);
+    transform: rotate(2250deg);
   }
 }
-
 .playHeader {
-  margin-bottom: 200px;
+  margin-bottom: 0;
 }
-
-
+h1.bounce {
+  animation-direction: alternate-reverse;
+  animation-name: gameover;
+  animation-timing-function: linear;
+  animation-duration: 1s;
+  animation-iteration-count: 3;
+  position: relative;
+}
+@keyframes gameover {
+  50% {
+    top: 200px;
+  }
+}
