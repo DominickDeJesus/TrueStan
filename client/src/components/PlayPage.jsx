@@ -175,22 +175,23 @@ const PlayPage = ({
   };
 
   return (
-
     <div className="playHeader">
       <h1>Round {round}</h1>
-
-
       <div>
         <h2>Can you complete the catalogue?</h2>
       </div>
       {/* <div>{currentTrack.trackName}</div> */}
+      <h2>Click the record to play!</h2>
       <a>
-        <button className="button" style={{ borderRadius: '50%' }}>
+        <button
+          className="button"
+          style={{ borderRadius: '50%' }}
+          onClick={toggleClick}
+        >
           <img
             style={{ borderRadius: '50%' }}
             src={currentTrack.artworkUrl100}
             alt="Album Artwork"
-            onClick={toggleClick}
           />
         </button>
       </a>
