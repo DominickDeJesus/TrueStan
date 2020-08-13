@@ -29,7 +29,7 @@ const App = () => {
   return (
     <Router>
       <NavMenu />
-      <Container className="container">
+      <Container style={{ margin: 0 }}>
         <Switch>
           <Route
             exact
