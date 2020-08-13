@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Form, FormControl, Container } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 
@@ -20,7 +20,7 @@ const LandingPage = ({ search, setSearch, getArtist, setArtistObj }) => {
   };
 
   return (
-    <Container style={{ paddingTop: '6.0em' }}>
+    <Container>
       <h1 data-text="ARE YOU A TRUE STAN">ARE YOU A TRUE STAN?</h1>
 
       <h2>
