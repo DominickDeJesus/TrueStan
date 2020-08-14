@@ -6,12 +6,24 @@ html {
   background-color: #141e30;
   background: linear-gradient(to right, #24243e, #141e30, #0f0c29);
   color: #fffaff;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+.gameOverContainer {
+  padding-bottom: 3rem;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
 }
 
 .container form input {
   justify-content: center;
-  width: 450px;
-  height: 65px;
+  width: 18em;
+  height: 3em;
   border-radius: 100px;
   outline: none;
   text-align: center;
@@ -20,17 +32,25 @@ html {
   background-color: #fffaff;
   border-style: none;
   font-style: italic;
-  margin-top: 50px;
+  margin-top: 1.75rem;
+  padding: 0;
 }
 
 .nav {
   margin-bottom: 0;
   margin-top: 0;
+  padding: 0 0 0 0.75rem;
 }
 .container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   margin-top: 0em;
   justify-content: center;
   text-align: center;
+  width: 100%;
+  height: 85%;
+  margin-bottom: 74px;
 }
 h1 {
   text-transform: Uppercase;
@@ -51,28 +71,38 @@ h2 {
 }
 
 h2 span {
-  font-size: 0.5em;
+  font-size: 0.75em;
 }
 .Buttons {
   text-decoration: none;
   padding-top: 200px;
 }
-.button {
+.recordButton {
   background-image: radial-gradient(#282828, black);
-  width: 350px;
-  height: 350px;
+  width: 21rem;
+  height: 21rem;
+  padding: 0;
   margin-top: 20;
   border: none;
   animation: turntable 30s infinite;
   animation-timing-function: linear;
+}
+
+img {
+  border-radius: 50%;
+  background-repeat: no-repeat;
 }
 @keyframes turntable {
   100% {
     transform: rotate(2250deg);
   }
 }
+
+#root {
+  height: 100%;
+}
 .playHeader {
-  margin-bottom: 0;
+  margin-bottom: 1.5rem;
 }
 h1.bounce {
   animation-direction: alternate-reverse;
@@ -85,5 +115,24 @@ h1.bounce {
 @keyframes gameover {
   50% {
     top: 200px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .container form input {
+    width: 95%;
+  }
+  h1 {
+    font-size: 3.5rem;
+  }
+  h2 {
+    font-size: 1.5rem;
+  }
+  .recordButton {
+    width: 15rem;
+    height: 15rem;
+  }
+  img {
+    width: 75px;
   }
 }
