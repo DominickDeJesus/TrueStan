@@ -182,19 +182,19 @@ const PlayPage = ({
 
       {/* <div>{currentTrack.trackName}</div> */}
       <h2>Click the record to play</h2>
-      <a>
+      <div>
         <button
-          className="button"
+          className="recordButton"
           style={{ borderRadius: '50%', outline: 'none' }}
           onClick={toggleClick}
         >
           <img
-            style={{ borderRadius: '50%' }}
+            style={{}}
             src={currentTrack.artworkUrl100}
             alt="Album Artwork"
           />
         </button>
-      </a>
+      </div>
       <Form onSubmit={handleSubmit}>
         <Form.Row>
           <Form.Control
