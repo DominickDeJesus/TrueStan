@@ -28,7 +28,7 @@ Open [http://localhost:3000](http://localhost:3000) to view your local React app
 
 ## Built With
 
-- Full Stack React.js
+- React.js
 - Express
 - Node.js
 - CSS
