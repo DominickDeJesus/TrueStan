@@ -1,7 +1,5 @@
 import React from 'react';
 const GameOverPage = ({ match }) => {
-  console.log(match.params.answer);
-
   return (
     <div className="gameOverContainer">
       <h1 className="bounce">Game Over Man!</h1>

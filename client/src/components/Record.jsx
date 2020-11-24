@@ -15,16 +15,12 @@ const Record = ({ currentTrack, round }) => {
    */
   const getTimeLimit = (round) => {
     if (round === 1) {
-      console.log('Time is set to 15');
       return 15000;
     } else if (round < 4) {
-      console.log('Time is set to 10');
       return 10000;
     } else if (round < 8) {
-      console.log('Time is set to 5');
       return 5000;
     } else {
-      console.log('Time is set to 1.5');
       return 1500;
     }
   };

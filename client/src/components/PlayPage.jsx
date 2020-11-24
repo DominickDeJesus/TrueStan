@@ -44,7 +44,6 @@ const PlayPage = ({
     if (string.indexOf('(') === -1) {
       return '';
     } else {
-      //console.log(string.substring(0, string.indexOf('(')))
       return cleanInput(string.substring(0, string.indexOf('(')));
     }
   };
@@ -60,11 +59,9 @@ const PlayPage = ({
 
     if (removeParenthCont(answer) !== '') {
       answer = removeParenthCont(answer);
-      //console.log('removed parenths ', answer);
     }
     if (removeParenthCont(guess) !== '') {
       guess = removeParenthCont(guess);
-      //console.log('removed parenth from guess ', guess);
     }
 
     answer = cleanInput(answer);
@@ -90,7 +87,6 @@ const PlayPage = ({
       //if the random index is not in the picked song inex then put it in there and retunr the random song
       if (pickedSongIndecies.indexOf(randomIndex) < 0) {
         pickedSongIndecies.push(randomIndex);
-        //console.log('I should have changed ', pickedSongIndecies);
         return artistSongArr[randomIndex];
       }
     }
