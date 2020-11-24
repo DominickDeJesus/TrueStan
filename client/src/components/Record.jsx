@@ -5,7 +5,7 @@ const Record = ({ currentTrack, round }) => {
   const audio = new Audio(currentTrack.previewUrl);
   useEffect(() => {
     return () => {
-      stopPlaying();
+      audio.pause();
     };
   }, [audio]);
 

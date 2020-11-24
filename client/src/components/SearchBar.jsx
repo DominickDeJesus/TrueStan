@@ -13,6 +13,7 @@ const SearchBar = ({ handleSubmit, placeholder, handleChange }) => {
           onChange={handleChange}
           autoComplete="off"
           required
+          autoFocus
         />
       </Form.Row>
     </Form>
