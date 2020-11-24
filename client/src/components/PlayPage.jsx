@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { useHistory, Redirect } from 'react-router-dom';
-
+import NoArtist from './NoArtist';
 const PlayPage = ({
   artistObj,
   currentTrack,
@@ -10,23 +10,13 @@ const PlayPage = ({
 }) => {
   const history = useHistory();
   const [round, setRound] = useState(1);
-  const handleClick = () => {
-    history.push('/');
-  };
 
   //These if's check if the data is there and ready to use.
   if (!artistObj.results) {
     return <Redirect to="/" />;
   }
   if (artistObj.resultCount === 0) {
-    return (
-      <>
-        <h1 style={{ paddingTop: '150px' }}>Couldn't Find Artist!</h1>
-        <h2 className="Buttons" style={{ padding: '0' }} onClick={handleClick}>
-          Click Here To Search Again
-        </h2>
-      </>
-    );
+    return <NoArtist />;
   }
 
   if (!currentTrack) {
