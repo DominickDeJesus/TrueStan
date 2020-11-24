@@ -1,6 +1,6 @@
 import React from 'react';
 import Nav from 'react-bootstrap/Nav';
-import truefan from './Logo/truestan.png';
+import truefan from '.././resources/images/truestan.png';
 
 const NavMenu = () => {
   return (

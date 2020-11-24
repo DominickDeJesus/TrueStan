@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Form, FormControl, Container } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 
@@ -11,11 +11,9 @@ const LandingPage = ({ search, setSearch, getArtist, setArtistObj }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
-    if (search !== '') {
-      getArtist(search).then(() => {
-        history.push('/play');
-      });
-    }
+    getArtist(search).then(() => {
+      history.push('/play');
+    });
     form.reset();
   };
 
@@ -26,8 +24,7 @@ const LandingPage = ({ search, setSearch, getArtist, setArtistObj }) => {
       <h2>
         search an artist
         <span role="img" aria-label="lightning">
-          {' '}
-          ⚡{' '}
+          ⚡
         </span>
         guess the song
       </h2>
@@ -40,6 +37,7 @@ const LandingPage = ({ search, setSearch, getArtist, setArtistObj }) => {
             placeholder="Search artist"
             onChange={handleChange}
             autoComplete="off"
+            required
           />
         </Form.Row>
       </Form>
