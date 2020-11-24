@@ -46,7 +46,7 @@ const App = () => {
               );
             }}
           />
-          <Route exact path="/gameover" component={GameOverPage} />
+          <Route exact path="/gameover/:answer" component={GameOverPage} />
           <Route exact path="/win" component={WinningPage} />
           <Route
             exact

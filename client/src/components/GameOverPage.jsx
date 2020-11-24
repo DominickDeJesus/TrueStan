@@ -1,9 +1,12 @@
 import React from 'react';
-const GameOverPage = () => {
+const GameOverPage = ({ match }) => {
+  console.log(match.params.answer);
+
   return (
     <div className="gameOverContainer">
       <h1 className="bounce">Game Over Man!</h1>
-      <a className="Buttons" onclick="click" href="/">
+      {/* <h1>{match.params.answer}</h1> */}
+      <a className="Buttons" href="/">
         <h2 className="Buttons">Click here to try again</h2>
       </a>
     </div>

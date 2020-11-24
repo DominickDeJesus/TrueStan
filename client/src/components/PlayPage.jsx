@@ -75,7 +75,7 @@ const PlayPage = ({
       return true;
     } else {
       setRound(-1);
-      history.push('/gameover');
+      history.push(`/gameover/${correctAns}`);
       return false;
     }
   };
@@ -122,7 +122,6 @@ const PlayPage = ({
   return (
     <div className="playHeader">
       <h1>Round {round}</h1>
-      {/* <div>{currentTrack.trackName}</div> */}
       <h2>Click the record to play</h2>
       <Record currentTrack={currentTrack} round={round} />
       <SearchBar handleSubmit={handleSubmit} placeholder="Guess that song!" />
