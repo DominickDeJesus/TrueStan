@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
-import { useHistory, Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import NoArtist from './NoArtist';
+import Record from './Record';
 const PlayPage = ({
   artistObj,
   currentTrack,
@@ -13,39 +14,17 @@ const PlayPage = ({
 
   //These if's check if the data is there and ready to use.
   if (!artistObj.results) {
-    return <Redirect to="/" />;
+    history.push('/');
   }
   if (artistObj.resultCount === 0) {
     return <NoArtist />;
   }
-
   if (!currentTrack) {
     return null;
   }
   if (!currentTrack.previewUrl) {
     return null;
   }
-  let playStatus = false;
-  const audio = new Audio(currentTrack.previewUrl);
-  /**Gets the time limit that is dependant on which round of the game it is.
-   * @returns A time in miliseconds
-   * @param {*} round
-   */
-  const getTimeLimit = (round) => {
-    if (round === 1) {
-      console.log('Time is set to 15');
-      return 15000;
-    } else if (round < 4) {
-      console.log('Time is set to 10');
-      return 10000;
-    } else if (round < 8) {
-      console.log('Time is set to 5');
-      return 5000;
-    } else {
-      console.log('Time is set to 1.5');
-      return 1500;
-    }
-  };
 
   /**Removes symbols and whitespace from a string.
    * @returns the cleaned string
@@ -131,7 +110,6 @@ const PlayPage = ({
    */
   const handleSubmit = (event) => {
     event.preventDefault();
-    stopPlaying();
     let guess = event.target.elements.searchbar.value;
     if (guess !== '') {
       isGuessCorrect(guess.toString(), currentTrack.trackName.toString());
@@ -140,51 +118,12 @@ const PlayPage = ({
     event.target.elements.searchbar.value = '';
   };
 
-  /**Start playing the song on a timer*/
-  const startPlaying = () => {
-    clearTimeout(window.playerTimeOut);
-    audio.play();
-    window.playerTimeOut = setTimeout(stopPlaying, getTimeLimit(round));
-    playStatus = true;
-  };
-
-  /**Stop playing the song and reset it to the begining */
-  const stopPlaying = () => {
-    audio.pause();
-    audio.currentTime = 0;
-    playStatus = false;
-  };
-
-  /**Handles the click event of the button. It will toggle between
-   * the pause and play functions.
-   */
-  const toggleClick = () => {
-    if (!playStatus) {
-      startPlaying();
-    } else {
-      stopPlaying();
-    }
-  };
-
   return (
     <div className="playHeader">
       <h1>Round {round}</h1>
-
       {/* <div>{currentTrack.trackName}</div> */}
       <h2>Click the record to play</h2>
-      <div>
-        <button
-          className="recordButton"
-          style={{ borderRadius: '50%', outline: 'none' }}
-          onClick={toggleClick}
-        >
-          <img
-            style={{}}
-            src={currentTrack.artworkUrl100}
-            alt="Album Artwork"
-          />
-        </button>
-      </div>
+      <Record currentTrack={currentTrack} round={round} />
       <Form onSubmit={handleSubmit}>
         <Form.Row>
           <Form.Control
