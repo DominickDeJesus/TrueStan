@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Form } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import NoArtist from './NoArtist';
 import Record from './Record';
+import SearchBar from './SearchBar';
+
 const PlayPage = ({
   artistObj,
   currentTrack,
@@ -124,17 +125,7 @@ const PlayPage = ({
       {/* <div>{currentTrack.trackName}</div> */}
       <h2>Click the record to play</h2>
       <Record currentTrack={currentTrack} round={round} />
-      <Form onSubmit={handleSubmit}>
-        <Form.Row>
-          <Form.Control
-            id="searchbar"
-            size="lg"
-            type="text"
-            placeholder="Guess that song!"
-            autoComplete="off"
-          ></Form.Control>
-        </Form.Row>
-      </Form>
+      <SearchBar handleSubmit={handleSubmit} placeholder="Guess that song!" />
     </div>
   );
 };

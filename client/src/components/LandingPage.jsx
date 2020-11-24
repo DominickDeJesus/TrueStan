@@ -1,7 +1,7 @@
 import React from 'react';
-import { Form, FormControl, Container } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
-
+import SearchBar from './SearchBar';
 const LandingPage = ({ search, setSearch, getArtist, setArtistObj }) => {
   const history = useHistory();
   const handleChange = (e) => {
@@ -20,7 +20,6 @@ const LandingPage = ({ search, setSearch, getArtist, setArtistObj }) => {
   return (
     <Container style={{ marginBottm: '0px' }}>
       <h1 data-text="ARE YOU A TRUE STAN">ARE YOU A TRUE STAN?</h1>
-
       <h2>
         search an artist
         <span role="img" aria-label="lightning">
@@ -28,19 +27,11 @@ const LandingPage = ({ search, setSearch, getArtist, setArtistObj }) => {
         </span>
         guess the song
       </h2>
-      <Form onSubmit={handleSubmit}>
-        <Form.Row>
-          <FormControl
-            id="search"
-            size="lg"
-            type="text"
-            placeholder="Search artist"
-            onChange={handleChange}
-            autoComplete="off"
-            required
-          />
-        </Form.Row>
-      </Form>
+      <SearchBar
+        handleSubmit={handleSubmit}
+        handleChange={handleChange}
+        placeholder="Search artist"
+      />
     </Container>
   );
 };
