@@ -13,6 +13,9 @@ html {
 .gameOverContainer {
   padding-bottom: 3rem;
 }
+.winner-container {
+  padding-bottom: 6rem;
+}
 
 html,
 body {
@@ -91,6 +94,8 @@ h2 span {
 img {
   border-radius: 50%;
   background-repeat: no-repeat;
+  width: 100px;
+  object-fit: cover;
 }
 @keyframes turntable {
   100% {
