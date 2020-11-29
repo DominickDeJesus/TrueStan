@@ -104,19 +104,6 @@ img {
 .playHeader {
   margin-bottom: 1.5rem;
 }
-h1.bounce {
-  animation-direction: alternate-reverse;
-  animation-name: gameover;
-  animation-timing-function: linear;
-  animation-duration: 1s;
-  animation-iteration-count: 3;
-  position: relative;
-}
-@keyframes gameover {
-  50% {
-    top: 200px;
-  }
-}
 
 @media only screen and (max-width: 600px) {
   .container form input {
