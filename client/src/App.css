@@ -95,6 +95,7 @@ img {
   border-radius: 50%;
   background-repeat: no-repeat;
   width: 100px;
+  height: 100px;
   object-fit: cover;
 }
 @keyframes turntable {
