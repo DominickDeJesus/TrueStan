@@ -8,7 +8,7 @@ const PlayPage = ({
   artistObj,
   currentTrack,
   setCurrentTrack,
-  pickedSongs,history
+  pickedSongs,setPickedSongs,history
 }) => {
   const [round, setRound] = useState(1);
 
@@ -87,7 +87,7 @@ const PlayPage = ({
     while (index < artistSongArr.length) {
       //if the random index is not in the picked song index then put it in there and return the random song
       if (pickedSongs.indexOf(artistSongArr[index].trackName) < 0) {
-        pickedSongs.push(artistSongArr[index].trackName);
+        setPickedSongs([...pickedSongs, artistSongArr[index].trackName]);
         return artistSongArr[index];
       }
       index++;
