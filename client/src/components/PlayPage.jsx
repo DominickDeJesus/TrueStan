@@ -8,9 +8,8 @@ const PlayPage = ({
   artistObj,
   currentTrack,
   setCurrentTrack,
-  pickedSongs,
+  pickedSongs,history
 }) => {
-  const history = useHistory();
   const [round, setRound] = useState(1);
 
   //These if's check if the data is there and ready to use.
