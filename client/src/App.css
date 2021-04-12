@@ -1,5 +1,5 @@
 /* J*/
-@import url('https://fonts.googleapis.com/css?family=Pirata+One|Rubik:900');
+@import url("https://fonts.googleapis.com/css?family=Pirata+One|Rubik:900");
 
 html {
   align-items: center;
@@ -59,7 +59,7 @@ h1 {
   text-transform: Uppercase;
   margin-bottom: 0.5em;
   margin-top: 0;
-  font-family: 'Rubik', sans-serif;
+  font-family: "Rubik", sans-serif;
   font-size: 5rem;
   text-shadow: 8px 8px black;
   padding-top: 0px;
@@ -67,7 +67,7 @@ h1 {
 
 h2 {
   margin-top: -1.15em;
-  font-family: 'Pirata One', cursive;
+  font-family: "Pirata One", cursive;
   font-size: 2rem;
   color: #ffde59;
   text-align: center;

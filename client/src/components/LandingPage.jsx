@@ -1,24 +1,23 @@
-import React from 'react';
-import { Container } from 'react-bootstrap';
-import { useHistory } from 'react-router-dom';
-import SearchBar from './SearchBar';
-const LandingPage = ({ search, setSearch, getArtist, setArtistObj }) => {
-  const history = useHistory();
+import React, { useState } from "react";
+import { Container } from "react-bootstrap";
+import { Redirect } from "react-router-dom";
+import SearchBar from "./SearchBar";
+const LandingPage = ({ search, setSearch, getArtist, setArtistObj, history }) => {
+const [redirect,setRedirect] = useState(false);
+if(redirect) return<Redirect to="/play" />;
+
   const handleChange = (e) => {
     setSearch(e.target.value);
   };
 
-  const handleSubmit = (event) => {
+  function handleSubmit(event) {
     event.preventDefault();
-    const form = event.target;
-    getArtist(search).then(() => {
-      history.push('/play');
-    });
-    form.reset();
+    getArtist(search).then(()=>
+    setRedirect(true) )
   };
 
   return (
-    <Container style={{ marginBottm: '0px' }}>
+    <Container style={{ marginBottm: "0px" }}>
       <h1 data-text="ARE YOU A TRUE STAN">ARE YOU A TRUE STAN?</h1>
       <h2>
         search an artist

@@ -1,30 +1,38 @@
-import React, { useState } from 'react';
-import GameOverPage from './components/GameOverPage';
-import PlayPage from './components/PlayPage';
-import LandingPage from './components/LandingPage';
-import WinningPage from './components/WinningPage';
-import { Container } from 'react-bootstrap';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import NavMenu from './components/NavMenu';
-import './App.css';
-import 'animate.css'
-
+import React, { useState } from "react";
+import GameOverPage from "./components/GameOverPage";
+import PlayPage from "./components/PlayPage";
+import LandingPage from "./components/LandingPage";
+import WinningPage from "./components/WinningPage";
+import { Container } from "react-bootstrap";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import NavMenu from "./components/NavMenu";
+import "./App.css";
+import "animate.css";
+import axios from 'axios'
 const App = () => {
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [artistObj, setArtistObj] = useState({});
   const [currentTrack, setCurrentTrack] = useState({});
-  const pickedSongIndecies = useState([0]);
+  const [pickedSongs, setPickedSongs] = useState([]);
 
-  function getArtist(search) {
-    return fetch(`/api/trackNames?search=${search}`)
-      .then((results) => results.json())
-      .then((data) => {
-        setArtistObj(data);
-        setCurrentTrack(data.results[0]);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  function randomizeArray(arr) {
+    return [...arr].sort((a, b) => {
+      return 0.5 - Math.random();
+    });
+  }
+
+   async function getArtist(search) {
+     try {
+      const {data} = await axios.get(`/api/trackNames?search=${search}`)
+      const mixedArr = randomizeArray(data.results);
+      console.log(mixedArr)
+      setArtistObj(mixedArr);
+      setPickedSongs([mixedArr[0]])
+      setCurrentTrack(mixedArr[0]);
+       
+     } catch (error) {
+      console.log(error);
+     }       
   }
 
   return (
@@ -59,7 +67,7 @@ const App = () => {
                   artistObj={artistObj}
                   currentTrack={currentTrack}
                   setCurrentTrack={setCurrentTrack}
-                  pickedSongIndecies={pickedSongIndecies}
+                  pickedSongs={pickedSongs}
                 />
               );
             }}

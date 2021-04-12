@@ -1,5 +1,5 @@
-import React from 'react';
-import { Form, FormControl } from 'react-bootstrap';
+import React from "react";
+import { Form, FormControl } from "react-bootstrap";
 
 const SearchBar = ({ handleSubmit, placeholder, handleChange }) => {
   return (
