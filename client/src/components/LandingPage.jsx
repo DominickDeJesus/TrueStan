@@ -1,19 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { Container } from "react-bootstrap";
-import { Redirect } from "react-router-dom";
 import SearchBar from "./SearchBar";
 const LandingPage = ({ search, setSearch, getArtist, setArtistObj, history }) => {
-const [redirect,setRedirect] = useState(false);
-if(redirect) return<Redirect to="/play" />;
-
   const handleChange = (e) => {
     setSearch(e.target.value);
   };
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    getArtist(search).then(()=>
-    setRedirect(true) )
+  const handleSubmit = (event) => {
+      event.preventDefault();
+      getArtist(search).then(()=>
+      history.push("/play"));
   };
 
   return (

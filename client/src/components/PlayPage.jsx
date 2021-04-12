@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useHistory, Redirect } from "react-router-dom";
 import NoArtist from "./NoArtist";
 import Record from "./Record";
 import SearchBar from "./SearchBar";
@@ -15,7 +15,7 @@ const PlayPage = ({
 
   //These if's check if the data is there and ready to use.
   if (!artistObj.results) {
-    history.push("/");
+    return <Redirect to="/"/>
   }
   if (artistObj.resultCount === 0) {
     return <NoArtist />;
@@ -26,7 +26,6 @@ const PlayPage = ({
   if (!currentTrack.previewUrl) {
     return null;
   }
-
 
 
   /**Removes symbols and whitespace from a string.
@@ -50,7 +49,7 @@ const PlayPage = ({
     }
   };
 
-  
+
   /**Sets the next round if correct and send to game over page if guess is wrong.
    * @returns if the answers are the same
    * @param {*} usrGuess

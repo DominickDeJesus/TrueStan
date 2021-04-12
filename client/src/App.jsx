@@ -26,10 +26,9 @@ const App = () => {
       const {data} = await axios.get(`/api/trackNames?search=${search}`)
       const mixedArr = randomizeArray(data.results);
       console.log(mixedArr)
-      setArtistObj(mixedArr);
+      setArtistObj({...data, results: mixedArr});
       setPickedSongs([mixedArr[0]])
       setCurrentTrack(mixedArr[0]);
-       
      } catch (error) {
       console.log(error);
      }       
