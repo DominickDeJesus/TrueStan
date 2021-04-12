@@ -1,5 +1,5 @@
 /* J*/
-@import url('https://fonts.googleapis.com/css?family=Pirata+One|Rubik:900');
+@import url("https://fonts.googleapis.com/css?family=Pirata+One|Rubik:900");
 
 html {
   align-items: center;
@@ -12,6 +12,9 @@ html {
 }
 .gameOverContainer {
   padding-bottom: 3rem;
+}
+.winner-container {
+  padding-bottom: 6rem;
 }
 
 html,
@@ -56,7 +59,7 @@ h1 {
   text-transform: Uppercase;
   margin-bottom: 0.5em;
   margin-top: 0;
-  font-family: 'Rubik', sans-serif;
+  font-family: "Rubik", sans-serif;
   font-size: 5rem;
   text-shadow: 8px 8px black;
   padding-top: 0px;
@@ -64,7 +67,7 @@ h1 {
 
 h2 {
   margin-top: -1.15em;
-  font-family: 'Pirata One', cursive;
+  font-family: "Pirata One", cursive;
   font-size: 2rem;
   color: #ffde59;
   text-align: center;
@@ -84,7 +87,7 @@ h2 span {
   padding: 0;
   margin-top: 20;
   border: none;
-  animation: turntable 30s infinite;
+  animation: turntable 5.5s infinite;
   animation-timing-function: linear;
 }
 
@@ -96,10 +99,13 @@ h2 span {
 img {
   border-radius: 50%;
   background-repeat: no-repeat;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
 }
 @keyframes turntable {
   100% {
-    transform: rotate(2250deg);
+    transform: rotate(360deg);
   }
 }
 
@@ -108,19 +114,6 @@ img {
 }
 .playHeader {
   margin-bottom: 1.5rem;
-}
-h1.bounce {
-  animation-direction: alternate-reverse;
-  animation-name: gameover;
-  animation-timing-function: linear;
-  animation-duration: 1s;
-  animation-iteration-count: 3;
-  position: relative;
-}
-@keyframes gameover {
-  50% {
-    top: 200px;
-  }
 }
 
 @media only screen and (max-width: 600px) {

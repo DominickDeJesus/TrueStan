@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 
 const Record = ({ currentTrack, round }) => {
   let playStatus = false;
@@ -53,7 +53,7 @@ const Record = ({ currentTrack, round }) => {
     <div>
       <button
         className="recordButton"
-        style={{ borderRadius: '50%', outline: 'none' }}
+        style={{ borderRadius: "50%", outline: "none" }}
         onClick={toggleClick}
       >
         <img

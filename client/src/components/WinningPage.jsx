@@ -1,7 +1,12 @@
-import React from 'react';
+import React from "react";
 
 const WinningPage = () => {
-  return <h1>Congratulations! You Are A True Stan!</h1>;
+  return (
+    <div className="winner-container">
+      <h1 className="animate__zoomInDown animate__animated">Congratulations</h1>
+      <h2>You are a TrueStan</h2>
+    </div>
+  );
 };
 
 export default WinningPage;
