@@ -56,7 +56,11 @@ const Record = ({ currentTrack, round }) => {
         style={{ borderRadius: '50%', outline: 'none' }}
         onClick={toggleClick}
       >
-        <img src={currentTrack.artworkUrl100} alt="Album Artwork" />
+        <img
+          className="album-cover"
+          src={currentTrack.artworkUrl100}
+          alt="Album Artwork"
+        />
       </button>
     </div>
   );

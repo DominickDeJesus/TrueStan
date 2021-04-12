@@ -88,6 +88,11 @@ h2 span {
   animation-timing-function: linear;
 }
 
+.album-cover {
+  width: 100px;
+  height: 100px;
+}
+
 img {
   border-radius: 50%;
   background-repeat: no-repeat;
