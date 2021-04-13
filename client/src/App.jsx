@@ -13,6 +13,7 @@ const App = () => {
 	const [artistObj, setArtistObj] = useState({});
 	const [currentTrack, setCurrentTrack] = useState({});
 	const [pickedSongs, setPickedSongs] = useState([]);
+	const [autoplay, setAutoplay] = useState(false);
 
 	function randomizeArray(arr) {
 		return [...arr].sort((a, b) => {
@@ -34,7 +35,7 @@ const App = () => {
 
 	return (
 		<Router>
-			<NavMenu />
+			<NavMenu autoplay={autoplay} setAutoplay={setAutoplay} />
 			<Container style={{ margin: 0 }}>
 				<Switch>
 					<Route
@@ -66,6 +67,7 @@ const App = () => {
 									setCurrentTrack={setCurrentTrack}
 									pickedSongs={pickedSongs}
 									setPickedSongs={setPickedSongs}
+									autoplay={autoplay}
 								/>
 							);
 						}}

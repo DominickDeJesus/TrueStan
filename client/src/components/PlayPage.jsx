@@ -11,6 +11,7 @@ const PlayPage = ({
 	pickedSongs,
 	setPickedSongs,
 	history,
+	autoplay,
 }) => {
 	const [round, setRound] = useState(1);
 
@@ -135,7 +136,7 @@ const PlayPage = ({
 		<div className="playHeader">
 			<h1>Round {round}</h1>
 			<h2>Click the record to play</h2>
-			<Record currentTrack={currentTrack} round={round} />
+			<Record currentTrack={currentTrack} round={round} autoplay={autoplay} />
 			<SearchBar handleSubmit={handleSubmit} placeholder="Guess that song!" />
 		</div>
 	);

@@ -1,8 +1,12 @@
 import React, { useEffect } from "react";
 
-const Record = ({ currentTrack, round }) => {
-	let playStatus = true;
+const Record = ({ currentTrack, round, autoplay }) => {
+	let playStatus = false;
 	const audio = new Audio(currentTrack.previewUrl);
+	if (autoplay) {
+		playStatus = true;
+		audio.play();
+	}
 	useEffect(() => {
 		return () => {
 			audio.pause();
