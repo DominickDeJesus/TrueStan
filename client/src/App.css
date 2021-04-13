@@ -1,136 +1,153 @@
 /* J*/
-@import url("https://fonts.googleapis.com/css?family=Pirata+One|Rubik:900");
+@import url("https://fonts.googleapis.com/css?family=Pirata+One");
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;900&display=swap");
 
 html {
-  align-items: center;
-  background-color: #141e30;
-  background: linear-gradient(to right, #24243e, #141e30, #0f0c29);
-  color: #fffaff;
-  width: 100%;
-  height: 100%;
-  margin: 0;
+	align-items: center;
+	background-color: #141e30;
+	background: linear-gradient(to right, #24243e, #141e30, #0f0c29);
+	color: #fffaff;
+	width: 100%;
+	height: 100%;
+	margin: 0;
 }
+
+body {
+	margin: 0;
+	padding: 0;
+}
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
 .gameOverContainer {
-  padding-bottom: 3rem;
+	padding-bottom: 3rem;
 }
 .winner-container {
-  padding-bottom: 6rem;
+	padding-bottom: 6rem;
 }
 
 html,
 body {
-  margin: 0;
-  height: 100%;
+	margin: 0;
+	height: 100%;
 }
 
 .container form input {
-  justify-content: center;
-  width: 18em;
-  height: 3em;
-  border-radius: 100px;
-  outline: none;
-  text-align: center;
-  font-size: x-large;
-  color: #080808;
-  background-color: #fffaff;
-  border-style: none;
-  font-style: italic;
-  margin-top: 1.75rem;
-  padding: 0;
+	justify-content: center;
+	width: 18em;
+	height: 3em;
+	border-radius: 100px;
+	outline: none;
+	text-align: center;
+	font-size: x-large;
+	color: #080808;
+	background-color: #fffaff;
+	border-style: none;
+	font-style: italic;
+	margin-top: 1.75rem;
+	padding: 0;
 }
 
 .nav {
-  margin-bottom: 0;
-  margin-top: 0;
-  padding: 0 0 0 0.75rem;
+	margin-bottom: 0;
+	margin-top: 0;
+	padding: 0 0 0 0.75rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
+
 .container {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  margin-top: 0em;
-  justify-content: center;
-  text-align: center;
-  width: 100%;
-  height: 85%;
-  margin-bottom: 74px;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	margin-top: 0em;
+	justify-content: center;
+	text-align: center;
+	width: 100%;
+	height: 85%;
+	margin-bottom: 74px;
 }
 h1 {
-  text-transform: Uppercase;
-  margin-bottom: 0.5em;
-  margin-top: 0;
-  font-family: "Rubik", sans-serif;
-  font-size: 5rem;
-  text-shadow: 8px 8px black;
-  padding-top: 0px;
+	text-transform: Uppercase;
+	margin-bottom: 0.5em;
+	margin-top: 0;
+	font-family: "Rubik", sans-serif;
+	font-size: 5rem;
+	text-shadow: 8px 8px black;
+	padding-top: 0px;
 }
 
 h2 {
-  margin-top: -1.15em;
-  font-family: "Pirata One", cursive;
-  font-size: 2rem;
-  color: #ffde59;
-  text-align: center;
+	margin-top: -1.15em;
+	font-family: "Pirata One", cursive;
+	font-size: 2rem;
+	font-weight: 500;
+	color: #ffde59;
+	text-align: center;
 }
 
 h2 span {
-  font-size: 0.75em;
+	font-size: 0.75em;
 }
 .Buttons {
-  text-decoration: none;
-  padding-top: 200px;
+	text-decoration: none;
+	padding-top: 200px;
 }
 .recordButton {
-  background-image: radial-gradient(#282828, black);
-  width: 21rem;
-  height: 21rem;
-  padding: 0;
-  margin-top: 20;
-  border: none;
-  animation: turntable 5.5s infinite;
-  animation-timing-function: linear;
+	background-image: radial-gradient(#282828, black);
+	width: 21rem;
+	height: 21rem;
+	padding: 0;
+	margin-top: 20;
+	border: none;
+	animation: turntable 5.5s infinite;
+	animation-timing-function: linear;
 }
 
 .album-cover {
-  width: 100px;
-  height: 100px;
+	width: 100px;
+	height: 100px;
 }
 
 img {
-  border-radius: 50%;
-  background-repeat: no-repeat;
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
+	border-radius: 50%;
+	background-repeat: no-repeat;
+	width: 100px;
+	object-fit: cover;
 }
+
 @keyframes turntable {
-  100% {
-    transform: rotate(360deg);
-  }
+	100% {
+		transform: rotate(360deg);
+	}
 }
 
 #root {
-  height: 100%;
+	height: 100%;
 }
+
 .playHeader {
-  margin-bottom: 1.5rem;
+	margin-bottom: 1.5rem;
 }
 
 @media only screen and (max-width: 600px) {
-  .container form input {
-    width: 95%;
-  }
-  h1 {
-    font-size: 3.5rem;
-  }
-  h2 {
-    font-size: 1.5rem;
-  }
-  .recordButton {
-    width: 15rem;
-    height: 15rem;
-  }
-  img {
-    width: 75px;
-  }
+	.container form input {
+		width: 95%;
+	}
+	h1 {
+		font-size: 3.5rem;
+	}
+	h2 {
+		font-size: 1.5rem;
+	}
+	.recordButton {
+		width: 15rem;
+		height: 15rem;
+	}
+	img {
+		width: 75px;
+	}
 }
